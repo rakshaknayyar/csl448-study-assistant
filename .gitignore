@@ -1,0 +1,15 @@
+# Virtual environment
+venv/
+
+# Generated search index (rebuild with: python ingest.py)
+index/
+
+# Secrets (API keys)
+.env
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Evaluation outputs
+results/

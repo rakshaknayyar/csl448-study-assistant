@@ -1,0 +1,17 @@
+# PDF reading
+pypdf
+# Chunking
+langchain-text-splitters
+# Embeddings (downloads all-MiniLM-L6-v2 on first run)
+sentence-transformers
+# Vector store
+faiss-cpu
+# BM25 keyword retrieval
+rank-bm25
+# Gemini answer generation
+google-genai
+# Web UI
+streamlit
+# Evaluation tables and charts
+pandas
+matplotlib
