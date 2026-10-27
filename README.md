@@ -112,8 +112,16 @@ venv\Scripts\python.exe -m streamlit run app.py
 Opens http://localhost:8501. The first launch takes about 15 seconds while the embedding model loads.
 If Streamlit asks for an email the first time, just press **Enter**. Stop it with **Ctrl+C**.
 
-In the sidebar: choose the retriever, set top-k, turn on **Show prompt sent to Gemini**, and click the example
-questions. *"What is word2vec?"* shows the "Not found in the notes" behaviour.
+The app has a clean, Apple-style look and three pages in the top bar:
+
+- **Ask:** the chat. Tap a suggested question or type your own. Each answer lists the pages it came from;
+  **Show the slide text** opens the retrieved slides and marks the ones the answer used.
+  **Search settings** picks the retriever (Hybrid, Meaning = dense, Keywords = BM25), how many slides to read
+  (top-k), and can show the prompt sent to Gemini. *"What is word2vec?"* shows the "Not found in the notes" behaviour.
+- **Results:** the evaluation numbers, charts and tables from `results/`.
+- **How it works:** the four pipeline steps, where each syllabus unit shows up, and details of the index.
+
+Colours, font and button shapes are set in `.streamlit/config.toml`.
 
 ### 5. Evaluate (`evaluate.py`)
 
@@ -179,7 +187,8 @@ csl448-rag/
 ├── ingest.py              step 1: PDFs -> chunks -> embeddings -> FAISS index
 ├── retriever.py           step 2: BM25, dense and hybrid search
 ├── rag.py                 step 3: threshold + prompt + Gemini -> answer with sources
-├── app.py                 step 4: Streamlit chat page
+├── app.py                 step 4: Streamlit app (Ask, Results, How it works)
+├── .streamlit/config.toml theme for the app (colours, font, rounded buttons)
 ├── evaluate.py            step 5: Recall@k, MRR, chunk sizes, answer accuracy
 ├── test_questions.json    your test questions for evaluate.py
 ├── requirements.txt       Python packages

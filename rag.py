@@ -18,6 +18,7 @@ Try it from the project folder:
 
 import argparse
 import os
+import re
 import sys
 import time
 from functools import lru_cache
@@ -57,6 +58,8 @@ def build_prompt(question, chunks):
 
     The rules tell the model to stay inside the context and to reply with the
     exact NOT_FOUND sentence otherwise, which stops it from hallucinating.
+    It also has to name the context blocks it used, so the app can show only
+    the pages the answer really came from.
     """
     context_blocks = []
     for number, chunk in enumerate(chunks, start=1):
@@ -73,6 +76,7 @@ Rules:
 - If the answer is not in the context, reply exactly: {NOT_FOUND}
 - Keep the answer short and clear: a few sentences or bullet points.
 - The slides may contain broken formulas or short bullet points; explain them in plain words.
+- End your answer with one last line naming the context blocks you used, exactly like this: Sources: [1], [3]
 
 Context:
 {context}
@@ -115,6 +119,25 @@ def generate_answer(prompt):
 # ----------------------------------------------------------------------------
 # 3. The full RAG pipeline
 # ----------------------------------------------------------------------------
+# The last line of an answer, e.g. "Sources: [1], [3]" (also "**Sources:** [1] and [2]").
+SOURCES_LINE = re.compile(r"\s*\**\s*Sources?\s*\**\s*:\s*\**\s*((?:\[?\d+\]?[\s,]*(?:and\s+)?)+)\**\s*$",
+                          re.IGNORECASE)
+
+
+def split_cited_chunks(answer, chunks):
+    """
+    Remove the final "Sources: [1], [3]" line from the answer and return
+    (answer without that line, the chunks it names). If the model left the
+    line out, every retrieved chunk counts as a source.
+    """
+    match = SOURCES_LINE.search(answer)
+    if not match:
+        return answer, chunks
+    numbers = {int(n) for n in re.findall(r"\d+", match.group(1))}
+    cited = [chunk for number, chunk in enumerate(chunks, start=1) if number in numbers]
+    return answer[:match.start()].rstrip(), cited or chunks
+
+
 def unique_sources(chunks):
     """List each (file, page) once, in ranking order."""
     sources = []
@@ -134,8 +157,9 @@ def answer_question(question, mode="hybrid", k=DEFAULT_TOP_K, retriever=None):
       found           - False when the answer is NOT_FOUND
       reason          - "answered", "low_similarity" (Gemini not called)
                         or "not_in_context" (Gemini said NOT_FOUND)
-      sources         - [{"source": file, "page": n}, ...] used as context
+      sources         - [{"source": file, "page": n}, ...] the answer was taken from
       chunks          - the retrieved chunks (for the Sources panel)
+      cited_ids       - ids of the chunks the answer names as its sources
       best_similarity - cosine similarity of the closest chunk
       prompt          - the prompt sent to Gemini (None if not sent)
 
@@ -151,6 +175,7 @@ def answer_question(question, mode="hybrid", k=DEFAULT_TOP_K, retriever=None):
         "reason": "low_similarity",
         "sources": [],
         "chunks": chunks,
+        "cited_ids": [],
         "best_similarity": best_similarity,
         "prompt": None,
     }
@@ -168,7 +193,9 @@ def answer_question(question, mode="hybrid", k=DEFAULT_TOP_K, retriever=None):
         result["reason"] = "not_in_context"
         return result
 
-    result.update(answer=answer, found=True, reason="answered", sources=unique_sources(chunks))
+    answer, cited = split_cited_chunks(answer, chunks)
+    result.update(answer=answer, found=True, reason="answered", sources=unique_sources(cited),
+                  cited_ids=[chunk["id"] for chunk in cited])
     return result
 
 
