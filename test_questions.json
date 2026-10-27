@@ -1,0 +1,242 @@
+[
+  {
+    "question": "What is text classification?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 4,
+    "expected_answer": "The assignment of text documents to one or more predefined categories based on their content."
+  },
+  {
+    "question": "What are the input and output of a text classifier?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 4,
+    "expected_answer": "Input: a set of m hand-labeled documents (x1,y1),...,(xm,ym). Output: a learned classifier f that maps x to y."
+  },
+  {
+    "question": "Give some applications of text classification.",
+    "expected_source": "text_classification.pdf",
+    "expected_page": [5, 60],
+    "expected_answer": "Classifying news stories by topic, business names by industry, student essays by grade, email as spam or not, email to tech staff by platform, PDF files as research papers, and documents by author."
+  },
+  {
+    "question": "What is the Reuters-21578 dataset?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 6,
+    "expected_answer": "The best-studied benchmark for text classification: Reuters newswire stories with 9603 training and 3299 test documents of 80-100 words each, in 93 classes."
+  },
+  {
+    "question": "Which pre-processing steps are applied to text before classification?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 9,
+    "expected_answer": "Removing stop words (punctuation, prepositions, pronouns), stemming, indexing and dimensionality reduction."
+  },
+  {
+    "question": "What is stemming? Give an example.",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 9,
+    "expected_answer": "Reducing related word forms to a common stem, e.g. walk, walker, walked and walking."
+  },
+  {
+    "question": "What is the difference between tfc-weighting and ltc-weighting?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 13,
+    "expected_answer": "tfc-weighting considers the normalized length of documents; ltc-weighting uses the logarithm of the word frequency to reduce the effect of large differences in frequencies."
+  },
+  {
+    "question": "What techniques are used for dimensionality reduction of text?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 15,
+    "expected_answer": "Feature selection to remove non-informative words, e.g. document frequency thresholding and information gain; also Latent Semantic Indexing and Singular Value Decomposition."
+  },
+  {
+    "question": "How does Naive Bayes decide which class a document belongs to?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 19,
+    "expected_answer": "It builds a probabilistic model Pr(X|Y=y) for each class and picks the class most likely to have generated the document: f(x) = argmax_y Pr(x|y) * Pr(y)."
+  },
+  {
+    "question": "What independence assumption does Naive Bayes make about words?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 20,
+    "expected_answer": "Each word is generated independently of the others given the class (a bag of words), which is clearly not true but simplifies Pr(X|Y) to a product of Pr(w|y)."
+  },
+  {
+    "question": "In Naive Bayes, what kind of distribution is Pr(W|Y) and what prior is used?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": [21, 22],
+    "expected_answer": "Pr(W|Y) is a multinomial distribution, and the use of m and p is a Dirichlet prior for the multinomial (for instance m=1, p=0.5)."
+  },
+  {
+    "question": "How is a Naive Bayes classifier trained using counts?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 23,
+    "expected_answer": "For each labeled document and each word in it, increment count[word][label], count[label] and the total count; to classify, pick the class with the top log-score, which only needs counts for words that appear in the document."
+  },
+  {
+    "question": "What are the pros and cons of Naive Bayes?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 25,
+    "expected_answer": "Pros: very fast, easy to implement, well understood. Cons: seldom gives the best performance; its probabilities are not accurate, decrease with document length and tend to be close to 0 or 1."
+  },
+  {
+    "question": "How can a classifier cope with the curse of dimensionality in text?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 27,
+    "expected_answer": "Use sparse vectors for efficiency, use simple linear or log-linear classifiers, and rely on wide margins."
+  },
+  {
+    "question": "What does the voted perceptron learn?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 29,
+    "expected_answer": "A weight vector W and a threshold theta for two classes: it answers yes if w.x is greater than theta, otherwise no, and corrects the weights when it makes a mistake."
+  },
+  {
+    "question": "What is the main lesson of the voted perceptron?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 32,
+    "expected_answer": "It makes few mistakes when learning incrementally if the examples are bounded and a large-margin separator exists; this motivates support vector machines, which look for the maximum-margin line directly."
+  },
+  {
+    "question": "What are support vectors?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 33,
+    "expected_answer": "The training examples x_i that touch the margin; the SVM classifier can be written in terms of them. SVMs often give very good results on topical text classification."
+  },
+  {
+    "question": "Name some decision tree learning algorithms.",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 36,
+    "expected_answer": "ID3 (Quinlan, 1986), C4.5 (Quinlan, 1993) and CART (Breiman, Friedman et al.)."
+  },
+  {
+    "question": "How does the CART decision tree choose the best split?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 37,
+    "expected_answer": "The best splitter produces the purest children, measured with entropy as the diversity measure; each component of the document vector is considered in turn, repeating until no set can be partitioned further."
+  },
+  {
+    "question": "What is the TF-IDF representation of a document?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 40,
+    "expected_answer": "A bag of words: a long sparse vector where each word's weight depends on its term frequency TF(w) in the document and its document frequency DF(w) across the N documents, with the vector normalized."
+  },
+  {
+    "question": "Which classification algorithms does TF-IDF weighting help?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 41,
+    "expected_answer": "It is an old information retrieval trick that often improves algorithms such as the k-nearest neighbor algorithm and Rocchio's algorithm."
+  },
+  {
+    "question": "How does the k-nearest neighbor algorithm classify a new document?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 42,
+    "expected_answer": "It finds the most similar object(s) in the training set and assigns the category of that nearest neighbor."
+  },
+  {
+    "question": "How does Rocchio's algorithm classify a document?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 44,
+    "expected_answer": "It uses the distance to the centroid of the documents of each class and assigns the test document to the class with maximum similarity."
+  },
+  {
+    "question": "What is a neural network text classifier?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": [47, 48],
+    "expected_answer": "A collection of interconnected neurons that incrementally learn from their environment to categorize documents, trained with forward and backward propagation."
+  },
+  {
+    "question": "In which aspects can the performance of a classification algorithm be evaluated?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 50,
+    "expected_answer": "Predictive performance (how accurate it is), complexity of the learned model, and run time (time to build the model and to classify examples)."
+  },
+  {
+    "question": "How are accuracy and error calculated from the contingency table?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 52,
+    "expected_answer": "Accuracy = (a+d)/(a+b+c+d) and error = (b+c)/(a+b+c+d), where a, b, c, d are the cells of the assigned/rejected vs correct/incorrect table."
+  },
+  {
+    "question": "What is the difference between macro-averaging and micro-averaging?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": [53, 54],
+    "expected_answer": "Macro-averaging gives equal weight to each category (compute per category, then average); micro-averaging gives equal weight to each document (build one global contingency table)."
+  },
+  {
+    "question": "What is hold-out estimation of the error rate?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 55,
+    "expected_answer": "Randomly split the data into a training set (e.g. 2/3) and a test set (1/3), build the model on the training set and estimate the error on the test set; repeating with different random splits makes it more reliable."
+  },
+  {
+    "question": "What is k-fold cross-validation?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 56,
+    "expected_answer": "Divide the data into k equal subsets, train on k-1 and test on the remaining one, k times so each subset is used for testing, then average the error rates; 10-fold is the standard."
+  },
+  {
+    "question": "What is overfitting and what causes it?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 57,
+    "expected_answer": "The model memorizes the training data instead of generalizing, so it fails on unseen data; causes include insufficient examples, a complex model, too many examples and noisy data."
+  },
+  {
+    "question": "What is underfitting?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 58,
+    "expected_answer": "The model is too simple to find the relationship in the input data, so it works poorly on both the training data and unseen data."
+  },
+  {
+    "question": "How were reviews classified as favorable or not using semantic orientation?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 61,
+    "expected_answer": "On 410 Epinions reviews, extract 2-word phrases containing an adverb or adjective and classify each review by the average semantic orientation of its phrases, computed with queries to a web search engine."
+  },
+  {
+    "question": "How did Pang et al. classify movie reviews using subjective sentences?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": [63, 66, 67, 68],
+    "expected_answer": "They focus on subjective (polar) sentences: build a sentence subjectivity classifier, then force nearby sentences to have similar subjectivity by finding a minimum cut on a graph with one vertex per sentence."
+  },
+  {
+    "question": "What are the main conclusions about text classification?",
+    "expected_source": "text_classification.pdf",
+    "expected_page": 69,
+    "expected_answer": "There are many applications; topical classification is well understood, most information is in individual words and fast simple methods work well; in many applications classes are not topics, e.g. sentiment or subjectivity detection."
+  },
+  {
+    "question": "What is word2vec?",
+    "expected_source": null,
+    "expected_page": null,
+    "expected_answer": "Not found in the notes"
+  },
+  {
+    "question": "How does self-attention work in the Transformer architecture?",
+    "expected_source": null,
+    "expected_page": null,
+    "expected_answer": "Not found in the notes"
+  },
+  {
+    "question": "What is BERT and how is it pre-trained?",
+    "expected_source": null,
+    "expected_page": null,
+    "expected_answer": "Not found in the notes"
+  },
+  {
+    "question": "How does the BM25 ranking function score documents?",
+    "expected_source": null,
+    "expected_page": null,
+    "expected_answer": "Not found in the notes"
+  },
+  {
+    "question": "What is named entity recognition?",
+    "expected_source": null,
+    "expected_page": null,
+    "expected_answer": "Not found in the notes"
+  },
+  {
+    "question": "Who won the cricket world cup in 2011?",
+    "expected_source": null,
+    "expected_page": null,
+    "expected_answer": "Not found in the notes"
+  }
+]

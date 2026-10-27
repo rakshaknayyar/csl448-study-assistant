@@ -11,5 +11,5 @@ index/
 __pycache__/
 *.pyc
 
-# Evaluation outputs
-results/
+# Local Claude Code tool settings
+.claude/

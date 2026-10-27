@@ -1,0 +1,4 @@
+metric,value,questions
+Answer accuracy (in the notes),0.971,34
+Correct refusals (not in the notes),1.000,6
+Overall,0.975,40
