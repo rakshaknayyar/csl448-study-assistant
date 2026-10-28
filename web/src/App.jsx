@@ -10,6 +10,7 @@ import Results from "./pages/Results.jsx";
 
 // Chats are saved in this browser (localStorage), so they survive a refresh.
 const CHATS_KEY = "study-assistant.chats.v1";
+const COLLAPSED_KEY = "study-assistant.sidebar-collapsed";
 
 function loadChats() {
   try {
@@ -38,6 +39,8 @@ export default function App() {
   const [chats, setChats] = useState(loadChats);
   const [currentChatId, setCurrentChatId] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  // Desktop only: the sidebar can be squeezed into a rail of icons (remembered between visits).
+  const [collapsed, setCollapsed] = useState(() => localStorage.getItem(COLLAPSED_KEY) === "1");
   const [quizSource, setQuizSource] = useState(null);
   const [pendingQuestion, setPendingQuestion] = useState(null);
 
@@ -81,14 +84,22 @@ export default function App() {
     if (id === currentChatId) setCurrentChatId(null);
   };
 
+  const toggleCollapsed = () => {
+    setCollapsed((was) => {
+      try { localStorage.setItem(COLLAPSED_KEY, was ? "0" : "1"); } catch { /* ignore */ }
+      return !was;
+    });
+  };
+
   const recentChats = useMemo(() => [...chats].sort((a, b) => b.updated - a.updated), [chats]);
   const currentChat = chats.find((chat) => chat.id === currentChatId) || null;
   const openDrawer = () => setDrawerOpen(true);
 
   return (
-    <div className="app">
+    <div className={`app${collapsed ? " collapsed" : ""}`}>
       <Sidebar
         page={page} info={info} chats={recentChats} currentChatId={currentChatId} open={drawerOpen}
+        collapsed={collapsed} onToggleCollapsed={toggleCollapsed}
         onNavigate={navigate}
         onNewChat={() => { setCurrentChatId(null); navigate("ask"); }}
         onOpenChat={(id) => { setCurrentChatId(id); navigate("ask"); }}

@@ -1,4 +1,5 @@
-import { BookOpen, ChartColumn, ListChecks, MessageCircle, SquarePen, Trash2, Workflow } from "lucide-react";
+import { BookOpen, ChartColumn, ListChecks, MessageCircle, PanelLeftClose, PanelLeftOpen, SquarePen, Trash2,
+         Workflow } from "lucide-react";
 
 export const NAV = [
   { id: "ask", label: "Ask", icon: MessageCircle },
@@ -9,27 +10,34 @@ export const NAV = [
 ];
 
 // The side panel: app name, New chat, the five pages, and recent chats.
-export default function Sidebar({ page, info, chats, currentChatId, open, onNavigate, onNewChat,
-                                  onOpenChat, onDeleteChat }) {
+// On desktop it can be collapsed into a slim rail of icons (collapsed = true).
+export default function Sidebar({ page, info, chats, currentChatId, open, collapsed, onToggleCollapsed,
+                                  onNavigate, onNewChat, onOpenChat, onDeleteChat }) {
   return (
-    <aside className={`sidebar${open ? " open" : ""}`} aria-label="Navigation">
+    <aside className={`sidebar${open ? " open" : ""}${collapsed ? " collapsed" : ""}`} aria-label="Navigation">
       <div className="brand">
         <img src="/favicon.svg?v=3" alt="" />
-        <div>
+        <div className="text">
           <div className="name">Study Assistant</div>
           <div className="sub">CSL448 · RAG over your notes</div>
         </div>
+        <button className="collapse-button" onClick={onToggleCollapsed}
+                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                title={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
+          {collapsed ? <PanelLeftOpen size={19} /> : <PanelLeftClose size={19} />}
+        </button>
       </div>
 
-      <button className="new-chat" onClick={onNewChat}>
-        <SquarePen size={17} /> New chat
+      <button className="new-chat" onClick={onNewChat} title="New chat" aria-label="New chat">
+        <SquarePen size={17} /> <span className="text">New chat</span>
       </button>
 
       <nav className="nav">
         {NAV.map(({ id, label, icon: Icon }) => (
           <button key={id} className={page === id ? "active" : ""} onClick={() => onNavigate(id)}
-                  aria-current={page === id ? "page" : undefined}>
-            <Icon size={18} /> {label}
+                  aria-current={page === id ? "page" : undefined} title={collapsed ? label : undefined}
+                  aria-label={label}>
+            <Icon size={18} /> <span className="text">{label}</span>
           </button>
         ))}
       </nav>
