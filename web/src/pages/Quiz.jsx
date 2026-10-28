@@ -5,6 +5,7 @@ import { Segmented } from "../components/Controls.jsx";
 import { PageSheet } from "../components/Pages.jsx";
 
 const COUNTS = [5, 10, 15].map((n) => ({ value: n, label: `${n}` }));
+const RESULT_LABELS = { correct: "Correct", wrong: "Wrong", skipped: "Skipped" };
 
 // "Grassland, Desert & Aquatic Ecosystem" is long for a chip; keep chips short.
 const shortTitle = (title) => (title.length > 26 ? `${title.slice(0, 24).trimEnd()}…` : title);
@@ -55,6 +56,7 @@ export default function Quiz({ source }) {
   }
 
   const answeredCount = Object.keys(answers).length;
+  const skippedCount = quiz ? quiz.questions.length - answeredCount : 0;
   const score = quiz?.questions.filter((q, i) => answers[i] === q.answer).length ?? 0;
   const perLecture = quiz && quiz.sources.map((file) => {
     const indexes = quiz.questions.map((q, i) => (q.source === file ? i : -1)).filter((i) => i >= 0);
@@ -110,7 +112,12 @@ export default function Quiz({ source }) {
             <section className="results-card">
               <div className="score">
                 <span className="value">{score}/{quiz.questions.length}</span>
-                <span className="label">{score === quiz.questions.length ? "All correct. Well done!" : "correct. Revise the pages under the ones you missed."}</span>
+                <span className="label">
+                  {score === quiz.questions.length ? "All correct. Well done!" : (
+                    <>correct{skippedCount > 0 && <> · <span className="skipped-count">{skippedCount} skipped</span></>}.
+                      {" "}Revise the pages under the ones you missed.</>
+                  )}
+                </span>
               </div>
               {perLecture.length > 1 && (
                 <div className="group breakdown">
@@ -132,19 +139,26 @@ export default function Quiz({ source }) {
             </section>
           )}
 
-          {quiz.questions.map((q, i) => (
+          {quiz.questions.map((q, i) => {
+            // After checking: was this question right, wrong or skipped?
+            const result = !submitted ? null
+              : answers[i] === undefined ? "skipped" : answers[i] === q.answer ? "correct" : "wrong";
+            return (
             <section className="question" key={i}>
               <div className="q-num">
                 Question {i + 1}
                 {quiz.sources.length > 1 && <span className="q-tag">{name(q.source)}</span>}
+                {result && <span className={`q-result ${result}`}>{RESULT_LABELS[result]}</span>}
               </div>
               <div className="q-text">{q.question}</div>
               <div className="group">
                 {q.options.map((option, j) => {
                   const picked = answers[i] === j;
+                  // Filled green tick only for an answer YOU got right; when you were wrong
+                  // or skipped, the correct option gets a green outline and a label instead.
                   let state = picked ? "picked" : "";
-                  if (submitted && j === q.answer) state = "right";
-                  else if (submitted && picked) state = "wrong";
+                  if (result && j === q.answer) state = result === "correct" ? "right" : "answer";
+                  else if (result && picked) state = "wrong";
                   return (
                     <div className="row" key={j} style={{ padding: 0 }}>
                       <button className={`option ${state}`} disabled={submitted}
@@ -154,14 +168,16 @@ export default function Quiz({ source }) {
                           {state === "wrong" && <X size={14} strokeWidth={3} />}
                         </span>
                         {option}
+                        {state === "answer" && <span className="answer-tag">Correct answer</span>}
+                        {state === "wrong" && <span className="answer-tag">Your answer</span>}
                       </button>
                     </div>
                   );
                 })}
               </div>
               {submitted && (
-                <div className="explain">
-                  <b>{answers[i] === q.answer ? "Correct." : answers[i] === undefined ? "Skipped." : "Not quite."}</b>{" "}
+                <div className={`explain ${result}`}>
+                  <b>{{ correct: "Correct.", wrong: "Not quite.", skipped: "Skipped." }[result]}</b>{" "}
                   {q.explanation}{" "}
                   {q.page && (
                     <button className="btn plain small" onClick={() => setOpenPage({ source: q.source, page: q.page })}>
@@ -171,7 +187,8 @@ export default function Quiz({ source }) {
                 </div>
               )}
             </section>
-          ))}
+            );
+          })}
 
           {!submitted ? (
             <button className="btn primary" disabled={!answeredCount}

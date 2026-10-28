@@ -548,6 +548,21 @@ input[type="range"] { accent-color: var(--blue); width: 150px; }
 .option.wrong { color: var(--red); }
 .explain { font-size: 14px; line-height: 1.5; color: var(--label-2); margin: 8px 4px 0; }
 .explain b { color: var(--label); font-weight: 600; }
+.explain.correct b { color: var(--green); }
+.explain.wrong b { color: var(--red); }
+.explain.skipped b { color: var(--orange); }
+
+/* Result badge next to "Question n" after checking */
+.q-result { display: inline-block; margin-left: 8px; font-size: 12px; font-weight: 600; border-radius: 980px; padding: 2px 9px; }
+.q-result.correct { color: var(--green); background: var(--green-soft); }
+.q-result.wrong { color: var(--red); background: var(--red-soft); }
+.q-result.skipped { color: var(--orange); background: var(--orange-soft); }
+
+/* The correct option when you were wrong or skipped: green outline + label, not a filled tick */
+.option.answer { color: var(--green); }
+.option.answer .mark { border-color: var(--green); background: transparent; }
+.option .answer-tag { margin-left: auto; padding-left: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0.85; }
+.skipped-count { color: var(--orange); font-weight: 600; }
 .empty-state { color: var(--label-2); background: var(--bg-2); border-radius: var(--radius); padding: 28px; text-align: center; }
 
 /* --------------------------------------------------------------- results */
