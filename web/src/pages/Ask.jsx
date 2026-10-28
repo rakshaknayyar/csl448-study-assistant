@@ -248,8 +248,8 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
         <div className="chat-header-inner">
           <button className="menu-button" onClick={onMenu} aria-label="Open menu"><Menu size={22} /></button>
           <div className="contact">
-            <div className="avatar small"><BookOpen size={17} /></div>
-            <div className="name">Study Assistant <ChevronRight size={12} /></div>
+            <div className="avatar small"><BookOpen size={20} /></div>
+            <div className="name">Study Assistant <ChevronRight size={14} /></div>
           </div>
           <button className="icon-button" onClick={onNewChat} aria-label="New chat" title="New chat"
                   style={{ justifySelf: "end" }}>

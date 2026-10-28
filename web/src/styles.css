@@ -176,14 +176,17 @@ a { color: var(--blue); }
 /* Keep the menu button's grid column on desktop (hidden), so the contact stays centred. */
 .chat-header .menu-button { display: inline-flex; visibility: hidden; }
 @media (max-width: 860px) { .chat-header .menu-button { visibility: visible; } }
-.contact { display: flex; flex-direction: column; align-items: center; gap: 3px; grid-column: 2; }
+.contact { display: flex; flex-direction: column; align-items: center; gap: 4px; grid-column: 2; }
 .avatar {
   display: grid; place-items: center; border-radius: 50%;
   background: linear-gradient(160deg, #6e6e73, #3a3a3c); color: #fff;
 }
-.avatar.small { width: 32px; height: 32px; }
-.avatar.large { width: 64px; height: 64px; background: linear-gradient(160deg, #5ac8fa, #0a84ff); }
-.contact .name { font-size: 11px; font-weight: 500; display: flex; align-items: center; gap: 1px; color: var(--label); }
+/* Both avatars use the app icon's blue gradient, so the brand reads the same everywhere. */
+.avatar.small, .avatar.large { background: linear-gradient(160deg, #5ac8fa, #0a84ff); }
+.avatar.small { width: 40px; height: 40px; box-shadow: 0 2px 8px rgba(10, 132, 255, 0.25); }
+.avatar.large { width: 64px; height: 64px; }
+.contact .name { font-size: 13px; font-weight: 600; letter-spacing: -0.005em; display: flex; align-items: center;
+                 gap: 2px; color: var(--label); }
 .contact .name svg { color: var(--label-3); }
 .icon-button {
   display: inline-flex; align-items: center; justify-content: center;
