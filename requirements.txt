@@ -10,8 +10,9 @@ faiss-cpu
 rank-bm25
 # Gemini answer generation
 google-genai
-# Web UI
-streamlit
+# Web server for the React app (server.py)
+fastapi
+uvicorn
 # PDF page pictures for source previews
 pypdfium2
 # Evaluation tables and charts

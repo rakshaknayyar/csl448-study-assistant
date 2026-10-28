@@ -27,7 +27,7 @@ question ──► retriever (BM25 / Dense / Hybrid) ──► top-k note chunks
 | Vector store | FAISS `IndexFlatIP` on normalized vectors (= cosine similarity) |
 | Keyword retrieval | `rank-bm25` (BM25Okapi) |
 | Answer generation | Gemini `gemini-3.5-flash-lite` via the `google-genai` SDK |
-| Web UI | Streamlit (+ Altair for the interactive charts) |
+| Web app | React (Vite) with Recharts and KaTeX, served by a FastAPI server (`server.py`) |
 | Page previews | `pypdfium2` (renders PDF pages as pictures) |
 | Evaluation | pandas + matplotlib |
 
@@ -109,44 +109,59 @@ Prints the BM25 keywords and the top chunks from BM25, Dense and Hybrid side by 
 venv\Scripts\python.exe rag.py "Why is CNG called a green fuel?" --mode hybrid --k 5 --show-prompt
 ```
 
-### 4. Start the chat app (`app.py`)
+### 4. Start the app (`server.py` + the React app in `web/`)
 
 The easy way: **double-click `run_app.bat`** in the project folder. It uses the venv, reads your Gemini key from
-your Windows settings (so it works even in a window opened before you ran `setx`), builds the index if it is missing,
-and starts the app. Or from PowerShell:
+your Windows settings (so it works even in a window opened before you ran `setx`), builds the index (and the React app)
+if they are missing, starts the server and opens http://localhost:8501 in your browser. Or from PowerShell:
 
 ```powershell
-.\run_app.bat
+.un_app.bat
 ```
 
-Opens http://localhost:8501. The first launch takes about 15 seconds while the embedding model loads.
-If Streamlit asks for an email the first time, just press **Enter**. Stop it with **Ctrl+C**.
-
+The first launch takes about 15 seconds while the embedding model loads. Stop it with **Ctrl+C** in that window.
 After changing the notes or settings, **restart the app**: a running app keeps the old index in memory.
 
-The app has a clean, Apple-style look and five pages in the top bar:
+**How the app is built.** React can't run Python, so the app has two halves:
 
-- **Ask:** the chat. Tap a suggested question or type your own.
-  - Answers **type out live** (streaming) and show a **High / Medium / Low confidence** badge and the pages they came from.
+- `server.py` (FastAPI) wraps the Python code (retriever, RAG, quiz, summaries) in a small JSON API and streams each
+  answer word by word. It also serves the finished React app.
+- `web/` is the React app (Vite). The built version in `web/dist/` is included, so you only need **Node.js** if you
+  change the frontend. To work on it with live reload, run `python server.py` in one window and, in another:
+
+  ```powershell
+  cd web
+  npm install
+  npm run dev
+  ```
+
+  then open http://localhost:5173. When you're done, `npm run build` updates `web/dist/`.
+
+**What's in it.** A dark, iPhone-style design with a side panel (like ChatGPT) for the five pages and your recent
+chats (saved in your browser):
+
+- **Ask** looks like iMessage in dark mode: your questions in blue bubbles, answers in grey bubbles that **type out
+  live**, a typing indicator, and quick-reply suggestions on an empty chat.
+  - Under each answer: a **High / Medium / Low confidence** label and **source chips** (e.g. *L3 · p.1*); tap a chip
+    to see a picture of the real PDF page, or *5 passages* to see every retrieved passage, marked when the answer used it.
   - **Follow-up questions** work ("explain it more simply"): the last two questions and answers go into the prompt,
     and a vague follow-up is searched together with the previous question.
-  - **Show the source text** lists the retrieved passages with a **picture of the real PDF page**
-    (click *Open page* to enlarge) and marks the passages the answer used.
-  - **Search settings**: the retriever (Hybrid, Meaning = dense, Keywords = BM25), how many passages to read (top-k),
-    **Compare with plain Gemini** (shows Gemini's answer *without* your notes next to the RAG answer), and the prompt.
-  - **Download chat** saves the conversation as Markdown revision notes.
-  - *"What is the Kyoto Protocol?"* (not in the notes) shows "Not found in the notes"; turn on the comparison
+  - The **settings** button (inside the message box) picks the retriever (Hybrid, Meaning = dense, Keywords = BM25),
+    how many passages to read (top-k), **Compare with plain Gemini** (Gemini answers *without* your notes, as a second
+    sender with an orange outline), *Show the prompt*, and **Download as notes** (Markdown).
+  - *"What is the Kyoto Protocol?"* (not in the notes) gets "Not found in the notes"; turn on the comparison
     to see plain Gemini answer it anyway from general knowledge.
 - **Lectures:** a card for every lecture with its **TF-IDF key terms**, a **Summary** (written by Gemini from that
-  lecture only, saved so it opens instantly next time), **Quiz me** and **Ask**.
+  lecture only, saved so it opens instantly next time), **Quiz** and **Ask**.
 - **Quiz:** Gemini writes 5 multiple-choice questions from one lecture; *Check answers* gives your score and, for each
-  question, the explanation and the page to revise.
+  question, the explanation and a link to the page to revise.
 - **Results:** the evaluation numbers, interactive charts (hover for values) and tables from `results/`.
 - **How it works:** the four pipeline steps, where each syllabus unit shows up, and details of the index.
 
 Gemini requests per action: an answer 1 (2 with the comparison on), a summary 1 the first time only, a quiz 1.
 
-Colours, font and button shapes are set in `.streamlit/config.toml`.
+`npm audit` reports 4 low-severity warnings in KaTeX (the formula renderer). They only matter for untrusted pages on
+the internet; this app runs on your own computer, and the suggested `--force` fix would break formula rendering.
 
 ### 5. Evaluate (`evaluate.py`)
 
@@ -219,10 +234,10 @@ csl448-rag/
 ├── ingest.py              step 1: PDFs -> chunks -> embeddings -> FAISS index
 ├── retriever.py           step 2: BM25, dense and hybrid search
 ├── rag.py                 step 3: threshold + prompt + Gemini -> answer with sources
-├── app.py                 step 4: Streamlit app (Ask, Lectures, Quiz, Results, How it works)
+├── server.py              step 4: web server (FastAPI) - the API for the React app, and serves it
 ├── study.py               lectures, TF-IDF key terms, summaries, quizzes, page pictures
 ├── run_app.bat            double-click to start the app
-├── .streamlit/config.toml theme for the app (colours, font, rounded buttons)
+├── web/                   the React app: src/ (pages, components, styles.css), dist/ (built app)
 ├── evaluate.py            step 5: Recall@k, MRR, chunk sizes, answer accuracy
 ├── test_questions.json    your test questions for evaluate.py
 ├── requirements.txt       Python packages

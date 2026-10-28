@@ -13,3 +13,7 @@ __pycache__/
 
 # Local Claude Code tool settings
 .claude/
+
+# React app: installed packages (npm install). web/dist (the built app) IS kept,
+# so the app runs without Node.js.
+web/node_modules/
