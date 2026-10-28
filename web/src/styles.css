@@ -181,9 +181,9 @@ a { color: var(--blue); }
   display: grid; place-items: center; border-radius: 50%;
   background: linear-gradient(160deg, #6e6e73, #3a3a3c); color: #fff;
 }
-/* Header avatar: grey, like an iMessage contact. Start-screen avatar: the app's blue. */
+/* Grey avatars, like an iMessage contact. */
 .avatar.small { width: 40px; height: 40px; }
-.avatar.large { width: 64px; height: 64px; background: linear-gradient(160deg, #5ac8fa, #0a84ff); }
+.avatar.large { width: 64px; height: 64px; }
 .contact .name { font-size: 13px; font-weight: 600; letter-spacing: -0.005em; display: flex; align-items: center;
                  gap: 2px; color: var(--label); }
 .contact .name svg { color: var(--label-3); }
