@@ -83,7 +83,8 @@ venv\Scripts\python.exe ingest.py
 ```
 
 Reads the PDFs page by page, splits pages into chunks (default **500 characters, 100 overlap**), embeds them and
-saves the FAISS index to `index/`. Run it again whenever you change the notes. Other chunk sizes:
+saves the FAISS index to `index/`. It also adds one **overview** chunk per PDF (title, number of pages and the outline
+slide), so questions about the notes themselves, such as *"What is the topic of these notes?"*, can be answered. Run it again whenever you change the notes. Other chunk sizes:
 
 ```powershell
 venv\Scripts\python.exe ingest.py --chunk-size 300 --chunk-overlap 60

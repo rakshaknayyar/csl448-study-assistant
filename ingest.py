@@ -5,7 +5,9 @@ What this file does:
   1. Reads every PDF in the notes/ folder page by page, keeping the file name
      and page number so every answer can cite its source.
   2. Splits each page's text into overlapping chunks
-     (default 500 characters with 100 overlap - Unit 4: context optimization).
+     (default 500 characters with 100 overlap - Unit 4: context optimization),
+     plus one overview chunk per file (title, page count, outline) so that
+     questions about the notes themselves can be answered.
   3. Turns each chunk into a sentence embedding with all-MiniLM-L6-v2
      (Unit 4: transformer-based embeddings from HuggingFace).
   4. Stores the vectors in a FAISS index (Unit 5: vector database).
@@ -158,6 +160,46 @@ def chunk_pages(pages, chunk_size, chunk_overlap):
     return chunks
 
 
+# First lines that mark a slide as the table of contents.
+OUTLINE_TITLES = {"outline", "contents", "table of contents", "agenda", "overview"}
+
+
+def make_overview_chunks(pages, first_id):
+    """
+    Build one extra "overview" chunk per PDF with its title, length and outline.
+
+    Slides never say "the topic of these notes is ...", so without this chunk
+    questions about the notes themselves ("what is the topic?", "what does
+    this cover?") match nothing. The title comes from the first page and the
+    outline from the first slide titled Outline / Contents / Agenda.
+    """
+    pages_by_file = {}
+    for page in pages:
+        pages_by_file.setdefault(page["source"], []).append(page)
+
+    overviews = []
+    for source, file_pages in pages_by_file.items():
+        title_page = file_pages[0]
+        title = title_page["text"].splitlines()[0]
+        outline = next((page for page in file_pages
+                        if page["text"].splitlines()[0].strip().lower() in OUTLINE_TITLES), None)
+
+        text = (f"Overview of the notes file {source}.\n"
+                f"Title and main topic of these notes: {title}\n"
+                f"Number of pages: {file_pages[-1]['page']}")
+        if outline:
+            topics = "\n".join(outline["text"].splitlines()[1:])
+            text += f"\nTopics covered (outline on page {outline['page']}):\n{topics}"
+
+        overviews.append({
+            "id": first_id + len(overviews),
+            "source": source,
+            "page": title_page["page"],     # cite the title page
+            "text": text,
+        })
+    return overviews
+
+
 # ----------------------------------------------------------------------------
 # 3. Embed chunks and build the FAISS index
 # ----------------------------------------------------------------------------
@@ -219,6 +261,9 @@ def build_index(notes_dir=NOTES_DIR, index_dir=INDEX_DIR,
     chunks = chunk_pages(pages, chunk_size, chunk_overlap)
     print(f"\nSplit {len(pages)} pages into {len(chunks)} chunks "
           f"(chunk size {chunk_size}, overlap {chunk_overlap})")
+    overviews = make_overview_chunks(pages, first_id=len(chunks))
+    chunks += overviews
+    print(f"Added {len(overviews)} overview chunk(s) with each file's title and outline")
 
     print(f"Embedding chunks with {EMBEDDING_MODEL} ...")
     vectors = embed_texts([chunk["text"] for chunk in chunks])
