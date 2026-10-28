@@ -14,7 +14,7 @@ export default function Sidebar({ page, info, chats, currentChatId, open, onNavi
   return (
     <aside className={`sidebar${open ? " open" : ""}`} aria-label="Navigation">
       <div className="brand">
-        <img src="/favicon.svg?v=2" alt="" />
+        <img src="/favicon.svg?v=3" alt="" />
         <div>
           <div className="name">Study Assistant</div>
           <div className="sub">CSL448 · RAG over your notes</div>
