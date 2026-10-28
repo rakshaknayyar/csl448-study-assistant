@@ -490,6 +490,41 @@ input[type="range"] { accent-color: var(--blue); width: 150px; }
   appearance: none; background: var(--bg-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
   border: 1px solid var(--separator); border-radius: 10px; padding: 9px 36px 9px 12px; font-size: 15px; min-width: 260px;
 }
+/* Quiz setup card: lecture pills, question count, start */
+.quiz-setup { background: var(--bg-2); border-radius: var(--radius); padding: 16px 18px 14px; margin-bottom: 28px; }
+.setup-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.setup-head .group-title, .count .group-title { margin: 0; font-weight: 600; color: var(--label-2); }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  border: 1px solid #3a3a3c; background: transparent; color: var(--label-2);
+  border-radius: 980px; padding: 6px 12px; font-size: 14px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.pill b { font-weight: 600; color: var(--label); }
+.pill:hover { border-color: #545458; color: var(--label); }
+.pill.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+.pill.on b { color: #fff; }
+.setup-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+              margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--separator); }
+.count { display: flex; align-items: center; gap: 12px; }
+.setup-note { font-size: 13px; color: var(--label-3); margin-top: 8px; }
+.q-tag { display: inline-block; margin-left: 8px; font-size: 12px; font-weight: 500; color: var(--label-2);
+         background: var(--bg-3); border-radius: 980px; padding: 2px 9px; }
+
+/* Score card with a per-lecture breakdown */
+.results-anchor { scroll-margin-top: 16px; }
+.results-card { margin-bottom: 30px; }
+.breakdown { background: var(--bg-2); }
+.breakdown .label { font-size: 15px; }
+.tally { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600;
+         font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tally .bar { width: 90px; height: 6px; border-radius: 3px; background: var(--bg-3); overflow: hidden; }
+.tally .bar i { display: block; height: 100%; border-radius: 3px; background: currentColor; }
+.tally.good { color: var(--green); }
+.tally.ok { color: var(--orange); }
+.tally.low { color: var(--red); }
+
 .score { display: flex; align-items: baseline; gap: 10px; margin: 0 0 22px; }
 .score .value { font-size: 52px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
 .score .label { color: var(--label-2); }

@@ -19,7 +19,8 @@ API (all under /api):
                                    {"type": "error", "message": "..."}
   GET  /lectures                 lecture cards (title, pages, TF-IDF key terms)
   POST /lectures/{file}/summary  a revision summary of one lecture
-  POST /quiz                     multiple-choice questions from one lecture
+  POST /quiz                     multiple-choice questions from one or more lectures
+                                 ({"sources": ["L3.pdf", "L5.pdf"], "questions": 10})
   GET  /page/{file}/{page}       a PNG picture of one PDF page
   GET  /results                  the evaluation tables from results/
 """
@@ -60,7 +61,8 @@ SUGGESTIONS = [
     "What is the Kyoto Protocol?",
 ]
 
-QUIZ_LENGTH = 5
+QUIZ_LENGTH = 5            # default number of quiz questions
+MAX_QUIZ_QUESTIONS = 15
 
 # Loaded once when the server starts (the embedding model takes a few seconds).
 state = {}
@@ -187,13 +189,18 @@ def summary(source: str):
 
 
 class QuizRequest(BaseModel):
-    source: str
+    sources: list[str]
+    questions: int = QUIZ_LENGTH
 
 
 @app.post("/api/quiz")
 def quiz(request: QuizRequest):
+    if not request.sources:
+        raise HTTPException(400, "Pick at least one lecture.")
+    lectures = [get_lecture(source) for source in dict.fromkeys(request.sources)]   # no duplicates
+    count = max(1, min(request.questions, MAX_QUIZ_QUESTIONS))
     try:
-        return {"questions": study.make_quiz(get_lecture(request.source), QUIZ_LENGTH)}
+        return {"questions": study.make_quiz(lectures, count)}
     except (RuntimeError, errors.APIError, ValueError) as error:
         raise HTTPException(502, gemini_error_message(error))
 

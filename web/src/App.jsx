@@ -131,7 +131,7 @@ export default function App() {
                 onAsk={(question) => { setCurrentChatId(null); setPendingQuestion(question); navigate("ask"); }}
                 onQuiz={(source) => { setQuizSource(source); navigate("quiz"); }} />
             )}
-            {page === "quiz" && <Quiz source={quizSource} onSourceChange={setQuizSource} />}
+            {page === "quiz" && <Quiz source={quizSource} />}
             {page === "results" && <Results />}
             {page === "how" && <HowItWorks info={info} />}
           </>

@@ -4,7 +4,7 @@ study.py - study tools for the CSL448 Study Assistant app
   load_lectures() - one entry per PDF in notes/: title, pages, full text and
                     its key terms, picked with TF-IDF (Unit 3)
   summarize()     - a short revision summary of one lecture (Gemini, cached)
-  make_quiz()     - multiple-choice questions from one lecture (Gemini)
+  make_quiz()     - multiple-choice questions from one or more lectures (Gemini)
   page_image()    - a picture of one PDF page, for the source previews
 
 Summaries and page pictures are saved in the index/ folder, so each one is
@@ -167,24 +167,39 @@ Lecture notes ({lecture['label']} {lecture['title']}):
 # ----------------------------------------------------------------------------
 # Quiz (Gemini)
 # ----------------------------------------------------------------------------
-def make_quiz(lecture, number_of_questions=5):
+def questions_per_lecture(lectures, number_of_questions):
+    """Split the questions as evenly as possible: 10 over 3 lectures -> 4, 3, 3."""
+    base, extra = divmod(number_of_questions, len(lectures))
+    return {lecture["source"]: base + (1 if i < extra else 0) for i, lecture in enumerate(lectures)}
+
+
+def make_quiz(lectures, number_of_questions=5):
     """
-    Multiple-choice questions from one lecture. Returns a list of
-    {"question", "options" (4), "answer" (index 0-3), "explanation", "page"}.
-    Raises ValueError if Gemini's reply is not a usable quiz.
+    Multiple-choice questions from one or more lectures, in a single Gemini
+    request. Returns a list of {"question", "options" (4), "answer" (index 0-3),
+    "explanation", "source" (file), "page"}. Questions that don't name one of
+    the chosen files are dropped. Raises ValueError if the reply is not usable.
     """
+    split = questions_per_lecture(lectures, number_of_questions)
+    plan = "\n".join(f"- {split[l['source']]} from {l['source']} ({l['label']} {l['title']})"
+                     for l in lectures if split[l["source"]])
+    notes = "\n\n".join(f"===== {lecture['source']}: {lecture['label']} {lecture['title']} =====\n"
+                        f"{lecture_text_with_pages(lecture)}" for lecture in lectures)
+
     prompt = f"""You are writing a revision quiz for a student, using ONLY the lecture notes below.
-Write {number_of_questions} multiple-choice questions that test the most important facts in the notes.
+Write {number_of_questions} multiple-choice questions that test the most important facts in the notes:
+{plan}
 Each question has exactly 4 options and exactly one correct answer. Use only facts stated in the notes,
-and make the wrong options believable.
+and make the wrong options believable. Mix the lectures rather than grouping them.
 
 Reply with ONLY a JSON list, no other text, in exactly this format:
 [{{"question": "...", "options": ["...", "...", "...", "..."], "answer": 0,
-  "explanation": "one short sentence, from the notes, saying why this is correct", "page": 1}}]
-"answer" is the position (0 to 3) of the correct option. "page" is the [Page n] the fact comes from.
+  "explanation": "one short sentence, from the notes, saying why this is correct",
+  "source": "the file name the fact comes from, e.g. {lectures[0]['source']}", "page": 1}}]
+"answer" is the position (0 to 3) of the correct option. "page" is the [Page n] in that file.
 
-Lecture notes ({lecture['label']} {lecture['title']}):
-{lecture_text_with_pages(lecture)}"""
+Lecture notes:
+{notes}"""
     reply = generate_answer(prompt)
 
     # Take the JSON list out of the reply, even if Gemini wrapped it in ```json fences.
@@ -193,14 +208,17 @@ Lecture notes ({lecture['label']} {lecture['title']}):
         raise ValueError("Gemini did not return a quiz.")
     questions = json.loads(reply[start:end + 1])
 
+    chosen = {lecture["source"] for lecture in lectures}
     quiz = []
     for item in questions:
         options = item.get("options", [])
         answer = item.get("answer")
-        if item.get("question") and len(options) == 4 and isinstance(answer, int) and 0 <= answer < 4:
+        source = item.get("source") if len(lectures) > 1 else lectures[0]["source"]
+        if (item.get("question") and len(options) == 4 and isinstance(answer, int) and 0 <= answer < 4
+                and source in chosen):
             quiz.append({"question": item["question"], "options": [str(o) for o in options],
                          "answer": answer, "explanation": item.get("explanation", ""),
-                         "page": item.get("page")})
+                         "source": source, "page": item.get("page")})
     if not quiz:
         raise ValueError("Gemini's quiz had no usable questions.")
     return quiz

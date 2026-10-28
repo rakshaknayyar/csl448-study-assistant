@@ -116,7 +116,8 @@ your Windows settings (so it works even in a window opened before you ran `setx`
 if they are missing, starts the server and opens http://localhost:8501 in your browser. Or from PowerShell:
 
 ```powershell
-.un_app.bat
+.
+un_app.bat
 ```
 
 The first launch takes about 15 seconds while the embedding model loads. Stop it with **Ctrl+C** in that window.
@@ -153,8 +154,10 @@ chats (saved in your browser):
     to see plain Gemini answer it anyway from general knowledge.
 - **Lectures:** a card for every lecture with its **TF-IDF key terms**, a **Summary** (written by Gemini from that
   lecture only, saved so it opens instantly next time), **Quiz** and **Ask**.
-- **Quiz:** Gemini writes 5 multiple-choice questions from one lecture; *Check answers* gives your score and, for each
-  question, the explanation and a link to the page to revise.
+- **Quiz:** pick one or more lectures (or *Select all*) and 5, 10 or 15 questions; Gemini writes a mixed
+  multiple-choice quiz from those notes in one request. Each question is tagged with its lecture. *Check answers* gives
+  your score, a **per-lecture breakdown** (which topic to revise), and for each question the explanation and a link to
+  the page. Gemini doesn't always split the questions exactly evenly; the breakdown shows the real counts.
 - **Results:** the evaluation numbers, interactive charts (hover for values) and tables from `results/`.
 - **How it works:** the four pipeline steps, where each syllabus unit shows up, and details of the index.
 
