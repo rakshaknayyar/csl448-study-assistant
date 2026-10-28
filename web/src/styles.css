@@ -59,19 +59,23 @@ a { color: var(--blue); }
   min-height: 0;
 }
 .sidebar { overflow: hidden; white-space: nowrap; }   /* no text wrapping while it slides */
-.brand { display: flex; align-items: center; gap: 10px; padding: 6px 4px 16px 8px; }
-.brand img { width: 30px; height: 30px; flex: none; }
-.brand .text { flex: 1; min-width: 0; }
+/* Top row, one line: logo · name · collapse button on the far right */
+.brand { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 2px 0 6px; margin-bottom: 14px; }
+.brand img { width: 28px; height: 28px; flex: none; }
+.brand .name { flex: 1; min-width: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+               overflow: hidden; text-overflow: ellipsis; }
 .collapse-button {
-  flex: none; width: 34px; height: 34px; border: 0; border-radius: 9px;
-  display: grid; place-items: center; background: transparent; color: var(--label-3);
+  flex: none; width: 36px; height: 36px; border: 0; border-radius: 10px;
+  display: grid; place-items: center; background: transparent; color: var(--label-2);
+  transition: background 0.15s, color 0.15s;
 }
-.collapse-button:hover { background: #1a1a1d; color: var(--label); }
+.collapse-button:hover { background: #1c1c1f; color: var(--label); }
+.sidebar-foot .course { color: var(--label-2); font-weight: 500; margin-bottom: 2px; }
 
 /* Collapsed (desktop): a slim rail of icons; hover an icon for its name. */
 @media (min-width: 861px) {
   .sidebar.collapsed { padding: 14px 10px 12px; }
-  .sidebar.collapsed .brand { justify-content: center; padding: 6px 0 16px; }
+  .sidebar.collapsed .brand { justify-content: center; padding: 0; }
   .sidebar.collapsed .brand img,
   .sidebar.collapsed .text,
   .sidebar.collapsed .recent,
@@ -81,8 +85,6 @@ a { color: var(--blue); }
   .sidebar.collapsed .new-chat { background: transparent; border-color: transparent; }
   .sidebar.collapsed .new-chat:hover { background: #1a1a1d; }
 }
-.brand .name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
-.brand .sub { font-size: 12px; color: var(--label-2); }
 
 .new-chat {
   display: flex; align-items: center; gap: 10px;

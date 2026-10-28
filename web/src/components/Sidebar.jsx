@@ -17,10 +17,7 @@ export default function Sidebar({ page, info, chats, currentChatId, open, collap
     <aside className={`sidebar${open ? " open" : ""}${collapsed ? " collapsed" : ""}`} aria-label="Navigation">
       <div className="brand">
         <img src="/favicon.svg?v=3" alt="" />
-        <div className="text">
-          <div className="name">Study Assistant</div>
-          <div className="sub">CSL448 · RAG over your notes</div>
-        </div>
+        <div className="name text">Study Assistant</div>
         <button className="collapse-button" onClick={onToggleCollapsed}
                 aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
                 title={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
@@ -57,8 +54,8 @@ export default function Sidebar({ page, info, chats, currentChatId, open, collap
 
       {info && (
         <div className="sidebar-foot">
-          {info.lectures} lectures, {info.pages} pages<br />
-          {info.model}
+          <div className="course">CSL448 · RAG over your notes</div>
+          {info.lectures} lectures, {info.pages} pages · {info.model}
         </div>
       )}
     </aside>
