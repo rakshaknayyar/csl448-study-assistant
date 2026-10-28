@@ -107,7 +107,7 @@ export default function App() {
           </div>
         ) : page === "ask" ? (
           <Ask info={info} chat={currentChat} createChat={createChat} updateChat={updateChat}
-               onNewChat={() => setCurrentChatId(null)} onMenu={openDrawer}
+               onNewChat={() => setCurrentChatId(null)} onMenu={openDrawer} onNavigate={navigate}
                pendingQuestion={pendingQuestion} clearPending={() => setPendingQuestion(null)} />
         ) : (
           <>
