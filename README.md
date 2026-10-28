@@ -27,7 +27,8 @@ question ──► retriever (BM25 / Dense / Hybrid) ──► top-k note chunks
 | Vector store | FAISS `IndexFlatIP` on normalized vectors (= cosine similarity) |
 | Keyword retrieval | `rank-bm25` (BM25Okapi) |
 | Answer generation | Gemini `gemini-3.5-flash-lite` via the `google-genai` SDK |
-| Web UI | Streamlit |
+| Web UI | Streamlit (+ Altair for the interactive charts) |
+| Page previews | `pypdfium2` (renders PDF pages as pictures) |
 | Evaluation | pandas + matplotlib |
 
 ## How it maps to the syllabus
@@ -35,9 +36,9 @@ question ──► retriever (BM25 / Dense / Hybrid) ──► top-k note chunks
 | Unit | Where to see it |
 |---|---|
 | **Unit 2:** preprocessing, BM25 | `retriever.py`: `preprocess()` (lowercase, accent removal, tokenization, stop-words) and `bm25_search()` |
-| **Unit 3:** Bag of Words vs word embeddings | BM25 (term counts) vs dense embeddings, compared side by side in `retriever.py` and `evaluate.py` |
+| **Unit 3:** Bag of Words / TF-IDF vs word embeddings | BM25 (term counts) vs dense embeddings, compared in `retriever.py` and `evaluate.py`; TF-IDF key terms for each lecture in `study.py` (Lectures page) |
 | **Unit 4:** transformer embeddings, context optimization | `ingest.py` (sentence-transformers); chunk size / overlap / top-k experiments in `evaluate.py` |
-| **Unit 5:** RAG, vector database, prompt engineering | `rag.py` (prompt with numbered context, threshold, Gemini); FAISS index from `ingest.py` |
+| **Unit 5:** RAG, vector database, prompt engineering, LLMs | `rag.py` (prompt with numbered context, threshold, follow-ups, Gemini); "Compare with plain Gemini" shows the hallucinations RAG prevents; summaries and quizzes generated from the notes in `study.py` |
 | **CO5:** apply and evaluate | `evaluate.py`: Recall@k, MRR, chunk-size comparison, answer accuracy judged by Gemini |
 
 ---
@@ -123,14 +124,27 @@ If Streamlit asks for an email the first time, just press **Enter**. Stop it wit
 
 After changing the notes or settings, **restart the app**: a running app keeps the old index in memory.
 
-The app has a clean, Apple-style look and three pages in the top bar:
+The app has a clean, Apple-style look and five pages in the top bar:
 
-- **Ask:** the chat. Tap a suggested question or type your own. Each answer lists the pages it came from;
-  **Show the source text** opens the retrieved passages and marks the ones the answer used.
-  **Search settings** picks the retriever (Hybrid, Meaning = dense, Keywords = BM25), how many passages to read
-  (top-k), and can show the prompt sent to Gemini. *"What is the Kyoto Protocol?"* (not in the notes) shows the "Not found in the notes" behaviour.
-- **Results:** the evaluation numbers, charts and tables from `results/`.
+- **Ask:** the chat. Tap a suggested question or type your own.
+  - Answers **type out live** (streaming) and show a **High / Medium / Low confidence** badge and the pages they came from.
+  - **Follow-up questions** work ("explain it more simply"): the last two questions and answers go into the prompt,
+    and a vague follow-up is searched together with the previous question.
+  - **Show the source text** lists the retrieved passages with a **picture of the real PDF page**
+    (click *Open page* to enlarge) and marks the passages the answer used.
+  - **Search settings**: the retriever (Hybrid, Meaning = dense, Keywords = BM25), how many passages to read (top-k),
+    **Compare with plain Gemini** (shows Gemini's answer *without* your notes next to the RAG answer), and the prompt.
+  - **Download chat** saves the conversation as Markdown revision notes.
+  - *"What is the Kyoto Protocol?"* (not in the notes) shows "Not found in the notes"; turn on the comparison
+    to see plain Gemini answer it anyway from general knowledge.
+- **Lectures:** a card for every lecture with its **TF-IDF key terms**, a **Summary** (written by Gemini from that
+  lecture only, saved so it opens instantly next time), **Quiz me** and **Ask**.
+- **Quiz:** Gemini writes 5 multiple-choice questions from one lecture; *Check answers* gives your score and, for each
+  question, the explanation and the page to revise.
+- **Results:** the evaluation numbers, interactive charts (hover for values) and tables from `results/`.
 - **How it works:** the four pipeline steps, where each syllabus unit shows up, and details of the index.
+
+Gemini requests per action: an answer 1 (2 with the comparison on), a summary 1 the first time only, a quiz 1.
 
 Colours, font and button shapes are set in `.streamlit/config.toml`.
 
@@ -205,7 +219,8 @@ csl448-rag/
 ├── ingest.py              step 1: PDFs -> chunks -> embeddings -> FAISS index
 ├── retriever.py           step 2: BM25, dense and hybrid search
 ├── rag.py                 step 3: threshold + prompt + Gemini -> answer with sources
-├── app.py                 step 4: Streamlit app (Ask, Results, How it works)
+├── app.py                 step 4: Streamlit app (Ask, Lectures, Quiz, Results, How it works)
+├── study.py               lectures, TF-IDF key terms, summaries, quizzes, page pictures
 ├── run_app.bat            double-click to start the app
 ├── .streamlit/config.toml theme for the app (colours, font, rounded buttons)
 ├── evaluate.py            step 5: Recall@k, MRR, chunk sizes, answer accuracy
@@ -217,6 +232,8 @@ csl448-rag/
 │   ├── faiss.index        one normalized vector per chunk
 │   ├── chunks.json        chunk text with file name and page number
 │   ├── info.json          settings used to build the index
+│   ├── summaries.json     saved lecture summaries (made by the app)
+│   ├── page_images/       saved page pictures for previews (made by the app)
 │   └── chunk_size_N/      extra indexes from evaluate.py --chunk-sizes
 ├── results/               (generated by evaluate.py: CSV tables and PNG charts for the report)
 └── venv/                  (virtual environment, not in git)

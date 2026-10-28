@@ -12,6 +12,8 @@ rank-bm25
 google-genai
 # Web UI
 streamlit
+# PDF page pictures for source previews
+pypdfium2
 # Evaluation tables and charts
 pandas
 matplotlib
