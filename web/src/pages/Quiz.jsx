@@ -78,7 +78,6 @@ export default function Quiz({ source }) {
             return (
               <button key={l.source} className={`pill${on ? " on" : ""}`} aria-pressed={on}
                       onClick={() => toggle(l.source)} title={`${l.label} ${l.title}`}>
-                {on && <Check size={13} strokeWidth={3} />}
                 <b>{l.label}</b> {shortTitle(l.title)}
               </button>
             );
