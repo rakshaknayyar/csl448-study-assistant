@@ -114,11 +114,6 @@ Rules:
 - Answer ONLY from the given context. Do not use outside knowledge, even if you know the answer.
 - If the answer is not in the context, reply exactly: {NOT_FOUND}
 - Keep the answer short and clear: a few sentences or bullet points.
-- Start with the answer itself, not with phrases like "Based on your notes" (the sources are shown separately).
-- If the question asks for a difference or comparison, compare point by point: one bullet per aspect,
-  saying how each side differs on that aspect.
-- If the student asks for more on an earlier answer, give new points from the context instead of
-  repeating what was already said; if the context has nothing new, say so in one sentence.
 - The notes may contain broken formulas or short bullet points; explain them in plain words.
 - End your answer with one last line naming the context blocks you used, exactly like this: Sources: [1], [3]
 
