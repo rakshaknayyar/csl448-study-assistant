@@ -240,7 +240,6 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
 
   const lastUserIndex = messages.map((m) => m.role).lastIndexOf("user");
   const [day, time] = messages.length ? timeStamp(messages[0].time) : [];
-  const lectureCount = info?.lectures ?? "";
 
   return (
     <div className="chat">
@@ -263,7 +262,7 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
           <div className="welcome">
             <div className="avatar large"><BookOpen size={30} /></div>
             <h2>What do you want to revise?</h2>
-            <p>Ask anything from your {lectureCount} lectures. Every answer shows the page it came from.</p>
+            <p>Ask anything from your lectures. Every answer shows the page it came from.</p>
             <div className="suggestions">
               {(info?.suggestions || []).map((s, i) => (
                 <button key={s} onClick={() => send(s)}>
