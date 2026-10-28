@@ -348,8 +348,22 @@ a { color: var(--blue); }
 }
 .sheet-head h3 { margin: 0; font-size: 17px; font-weight: 600; }
 .sheet-head .sub { font-size: 13px; color: var(--label-2); }
+/* With a Back button: back | centred title | Done, like an iOS navigation bar */
+.sheet-head.with-back { grid-template-columns: 1fr auto 1fr; }
+.sheet-head.with-back .titles { text-align: center; }
+.sheet-head.with-back > .btn:last-child { justify-self: end; }
+.sheet-head .back { justify-self: start; gap: 0; padding-left: 2px; }
 .sheet-body { padding: 16px; overflow-y: auto; }
 @keyframes fade { from { opacity: 0; } }
+
+/* Swapping screens inside one sheet: a short slide, no flicker */
+.sheet-body.slide-forward { animation: slide-from-right 0.24s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.sheet-body.slide-back { animation: slide-from-left 0.24s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes slide-from-right { from { opacity: 0; transform: translateX(28px); } }
+@keyframes slide-from-left { from { opacity: 0; transform: translateX(-28px); } }
+@media (prefers-reduced-motion: reduce) {
+  .sheet-body.slide-forward, .sheet-body.slide-back, .sheet-backdrop { animation: none; }
+}
 @media (max-width: 860px) {
   .sheet-backdrop { align-items: flex-end; padding: 0; }
   .sheet, .sheet.wide { width: 100%; max-height: 92vh; border-radius: 14px 14px 0 0; }

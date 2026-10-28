@@ -155,7 +155,8 @@ function Reply({ message, onOpenPage, onOpenPassages }) {
 // --------------------------------------------------------------------- page
 
 // The contact card, opened by tapping the name in the header (like iMessage).
-function InfoSheet({ info, settings, onClose, onSettings, onNavigate }) {
+// It is one screen of the panel sheet; Settings is the other.
+function InfoScreen({ info, settings, onSettings, onNavigate }) {
   const index = info?.index;
   const rows = info ? [
     ["Notes", `${info.lectures} lectures, ${info.pages} pages`],
@@ -165,7 +166,7 @@ function InfoSheet({ info, settings, onClose, onSettings, onNavigate }) {
     ["Says \"Not found\" when", `the best match is below ${Math.round(info.threshold * 100)}%`],
   ] : [];
   return (
-    <Sheet title="Study Assistant" onClose={onClose}>
+    <>
       <div className="info-hero">
         <div className="avatar large"><BookOpen size={30} /></div>
         <h2>Study Assistant</h2>
@@ -184,7 +185,7 @@ function InfoSheet({ info, settings, onClose, onSettings, onNavigate }) {
           </div>
         ))}
       </div>
-    </Sheet>
+    </>
   );
 }
 
@@ -192,8 +193,10 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [settings, setSettings] = useState(() => loadSettings(info?.default_top_k ?? 5));
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const [infoOpen, setInfoOpen] = useState(false);
+  // The panel sheet: null, or { screen: "info" | "settings", from, direction }.
+  // Switching screens keeps the same sheet open, so nothing flickers.
+  const [panel, setPanel] = useState(null);
+  const closePanel = () => setPanel(null);
   const [passagesFor, setPassagesFor] = useState(null);
   const [openPage, setOpenPage] = useState(null);
   const scrollRef = useRef(null);
@@ -281,7 +284,7 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
       <header className="chat-header">
         <div className="chat-header-inner">
           <button className="menu-button" onClick={onMenu} aria-label="Open menu"><Menu size={22} /></button>
-          <button className="contact" onClick={() => setInfoOpen(true)} aria-label="About Study Assistant">
+          <button className="contact" onClick={() => setPanel({ screen: "info" })} aria-label="About Study Assistant">
             <div className="avatar small"><BookOpen size={20} /></div>
             <div className="name">Study Assistant <ChevronRight size={14} /></div>
           </button>
@@ -330,7 +333,7 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
       <div className="composer">
         <div className="composer-row">
           <div className="field">
-            <button className="field-button" onClick={() => setSettingsOpen(true)} aria-label="Search settings"
+            <button className="field-button" onClick={() => setPanel({ screen: "settings" })} aria-label="Search settings"
                     title="Search settings">
               <SlidersHorizontal size={18} />
             </button>
@@ -352,8 +355,18 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
         </div>
       </div>
 
-      {settingsOpen && (
-        <Sheet title="Search settings" onClose={() => setSettingsOpen(false)}>
+      {panel && (
+        <Sheet
+          title={panel.screen === "info" ? "Study Assistant" : "Search settings"}
+          screen={panel.screen} direction={panel.direction} onClose={closePanel}
+          onBack={panel.from === "info" ? () => setPanel({ screen: "info", direction: "back" }) : undefined}
+          backLabel="Study Assistant">
+          {panel.screen === "info" ? (
+            <InfoScreen info={info} settings={settings}
+                        onSettings={() => setPanel({ screen: "settings", from: "info", direction: "forward" })}
+                        onNavigate={(page) => { closePanel(); onNavigate(page); }} />
+          ) : (
+          <>
           <div className="group-title">How to search your notes</div>
           <div className="group">
             <div className="row">
@@ -410,13 +423,9 @@ export default function Ask({ info, chat, createChat, updateChat, onNewChat, onM
               </button>
             </div>
           </div>
+          </>
+          )}
         </Sheet>
-      )}
-
-      {infoOpen && (
-        <InfoSheet info={info} settings={settings} onClose={() => setInfoOpen(false)}
-                   onSettings={() => { setInfoOpen(false); setSettingsOpen(true); }}
-                   onNavigate={(page) => { setInfoOpen(false); onNavigate(page); }} />
       )}
 
       {passagesFor && (
