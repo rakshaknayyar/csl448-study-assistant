@@ -1,103 +1,112 @@
-retriever,question,expected_pages,retrieved_pages,first_hit_rank
-BM25,What is text classification?,[4],"[1, 2, 3, 7, 16]",
-BM25,What are the input and output of a text classifier?,[4],"[4, 58, 33, 66, 47]",1.0
-BM25,Give some applications of text classification.,"[5, 60]","[69, 2, 3, 7, 16]",
-BM25,What is the Reuters-21578 dataset?,[6],"[6, 51, 66, 61]",1.0
-BM25,Which pre-processing steps are applied to text before classification?,[9],"[11, 9, 2, 3, 7]",2.0
-BM25,What is stemming? Give an example.,[9],"[9, 38, 37, 6, 54]",1.0
-BM25,What is the difference between tfc-weighting and ltc-weighting?,[13],"[13, 14, 40]",1.0
-BM25,What techniques are used for dimensionality reduction of text?,[15],"[9, 15, 27, 1, 4]",2.0
-BM25,How does Naive Bayes decide which class a document belongs to?,[19],"[4, 44, 19, 23, 68]",3.0
-BM25,What independence assumption does Naive Bayes make about words?,[20],"[32, 20, 24, 23, 19]",2.0
-BM25,"In Naive Bayes, what kind of distribution is Pr(W|Y) and what prior is used?","[21, 22]","[21, 22, 20, 19, 25]",1.0
-BM25,How is a Naive Bayes classifier trained using counts?,[23],"[23, 4, 24, 66, 33]",1.0
-BM25,What are the pros and cons of Naive Bayes?,[25],"[25, 24, 17, 2, 3]",1.0
-BM25,How can a classifier cope with the curse of dimensionality in text?,[27],"[27, 4, 9, 15, 33]",1.0
-BM25,What does the voted perceptron learn?,[29],"[30, 29, 27, 17, 32]",2.0
-BM25,What is the main lesson of the voted perceptron?,[32],"[30, 17, 32, 2, 3]",3.0
-BM25,What are support vectors?,[33],"[33, 27, 37, 34, 45]",1.0
-BM25,Name some decision tree learning algorithms.,[36],"[36, 41, 37, 28, 57]",1.0
-BM25,How does the CART decision tree choose the best split?,[37],"[36, 37, 55, 25, 38]",2.0
-BM25,What is the TF-IDF representation of a document?,[40],"[41, 40, 8, 4, 23]",2.0
-BM25,Which classification algorithms does TF-IDF weighting help?,[41],"[41, 40, 13, 14, 36]",1.0
-BM25,How does the k-nearest neighbor algorithm classify a new document?,[42],"[42, 23, 41, 17, 44]",1.0
-BM25,How does Rocchio's algorithm classify a document?,[44],"[44, 41, 17, 23, 2]",1.0
-BM25,What is a neural network text classifier?,"[47, 48]","[47, 4, 33, 66, 17]",1.0
-BM25,In which aspects can the performance of a classification algorithm be evaluated?,[50],"[50, 41, 2, 3, 7]",1.0
-BM25,How are accuracy and error calculated from the contingency table?,[52],"[51, 53, 52, 55, 30]",3.0
-BM25,What is the difference between macro-averaging and micro-averaging?,"[53, 54]","[53, 54, 55]",1.0
-BM25,What is hold-out estimation of the error rate?,[55],"[55, 51, 56, 30, 52]",1.0
-BM25,What is k-fold cross-validation?,[56],"[56, 29, 17, 37, 41]",1.0
-BM25,What is overfitting and what causes it?,[57],[57],1.0
-BM25,What is underfitting?,[58],[58],1.0
-BM25,How were reviews classified as favorable or not using semantic orientation?,[61],"[61, 62, 5, 15, 5]",1.0
-BM25,How did Pang et al. classify movie reviews using subjective sentences?,"[63, 66, 67, 68]","[66, 68, 63, 36, 5]",1.0
-BM25,What are the main conclusions about text classification?,[69],"[69, 1, 2, 3, 7]",1.0
-Dense,What is text classification?,[4],"[1, 4, 69, 5, 17]",2.0
-Dense,What are the input and output of a text classifier?,[4],"[4, 47, 1, 29, 36]",1.0
-Dense,Give some applications of text classification.,"[5, 60]","[1, 69, 36, 17, 5]",5.0
-Dense,What is the Reuters-21578 dataset?,[6],"[6, 8, 8, 13, 10]",1.0
-Dense,Which pre-processing steps are applied to text before classification?,[9],"[9, 4, 1, 7, 3]",1.0
-Dense,What is stemming? Give an example.,[9],"[9, 13, 4, 11, 20]",1.0
-Dense,What is the difference between tfc-weighting and ltc-weighting?,[13],"[13, 40, 53, 6, 14]",1.0
-Dense,What techniques are used for dimensionality reduction of text?,[15],"[15, 9, 11, 27, 13]",1.0
-Dense,How does Naive Bayes decide which class a document belongs to?,[19],"[19, 21, 25, 22, 23]",1.0
-Dense,What independence assumption does Naive Bayes make about words?,[20],"[20, 21, 25, 22, 23]",1.0
-Dense,"In Naive Bayes, what kind of distribution is Pr(W|Y) and what prior is used?","[21, 22]","[21, 25, 22, 20, 19]",1.0
-Dense,How is a Naive Bayes classifier trained using counts?,[23],"[25, 21, 23, 22, 24]",3.0
-Dense,What are the pros and cons of Naive Bayes?,[25],"[25, 24, 21, 22, 19]",1.0
-Dense,How can a classifier cope with the curse of dimensionality in text?,[27],"[27, 15, 69, 1, 33]",1.0
-Dense,What does the voted perceptron learn?,[29],"[30, 32, 29, 69, 18]",3.0
-Dense,What is the main lesson of the voted perceptron?,[32],"[30, 32, 29, 69, 63]",2.0
-Dense,What are support vectors?,[33],"[45, 34, 33, 32, 28]",3.0
-Dense,Name some decision tree learning algorithms.,[36],"[38, 36, 37, 1, 17]",2.0
-Dense,How does the CART decision tree choose the best split?,[37],"[37, 38, 36, 19, 50]",1.0
-Dense,What is the TF-IDF representation of a document?,[40],"[40, 41, 13, 4, 5]",1.0
-Dense,Which classification algorithms does TF-IDF weighting help?,[41],"[41, 40, 13, 69, 5]",1.0
-Dense,How does the k-nearest neighbor algorithm classify a new document?,[42],"[41, 42, 17, 44, 16]",2.0
-Dense,How does Rocchio's algorithm classify a document?,[44],"[44, 17, 16, 7, 3]",1.0
-Dense,What is a neural network text classifier?,"[47, 48]","[47, 4, 1, 7, 3]",1.0
-Dense,In which aspects can the performance of a classification algorithm be evaluated?,[50],"[50, 51, 69, 1, 36]",1.0
-Dense,How are accuracy and error calculated from the contingency table?,[52],"[52, 56, 53, 30, 55]",1.0
-Dense,What is the difference between macro-averaging and micro-averaging?,"[53, 54]","[54, 53, 13, 14, 56]",1.0
-Dense,What is hold-out estimation of the error rate?,[55],"[55, 56, 30, 51, 52]",1.0
-Dense,What is k-fold cross-validation?,[56],"[56, 37, 50, 38, 55]",1.0
-Dense,What is overfitting and what causes it?,[57],"[57, 58, 51, 29, 32]",1.0
-Dense,What is underfitting?,[58],"[58, 57, 51, 48, 29]",1.0
-Dense,How were reviews classified as favorable or not using semantic orientation?,[61],"[62, 61, 63, 67, 69]",2.0
-Dense,How did Pang et al. classify movie reviews using subjective sentences?,"[63, 66, 67, 68]","[63, 67, 66, 61, 62]",1.0
-Dense,What are the main conclusions about text classification?,[69],"[69, 1, 17, 60, 5]",1.0
-Hybrid,What is text classification?,[4],"[1, 4, 2, 3, 7]",2.0
-Hybrid,What are the input and output of a text classifier?,[4],"[4, 47, 33, 1, 2]",1.0
-Hybrid,Give some applications of text classification.,"[5, 60]","[69, 2, 3, 7, 16]",
-Hybrid,What is the Reuters-21578 dataset?,[6],"[6, 61, 51, 66, 8]",1.0
-Hybrid,Which pre-processing steps are applied to text before classification?,[9],"[11, 9, 2, 3, 7]",2.0
-Hybrid,What is stemming? Give an example.,[9],"[9, 38, 37, 6, 13]",1.0
-Hybrid,What is the difference between tfc-weighting and ltc-weighting?,[13],"[13, 40, 14, 53, 6]",1.0
-Hybrid,What techniques are used for dimensionality reduction of text?,[15],"[9, 15, 27, 11, 2]",2.0
-Hybrid,How does Naive Bayes decide which class a document belongs to?,[19],"[4, 19, 44, 23, 24]",2.0
-Hybrid,What independence assumption does Naive Bayes make about words?,[20],"[20, 23, 24, 19, 21]",1.0
-Hybrid,"In Naive Bayes, what kind of distribution is Pr(W|Y) and what prior is used?","[21, 22]","[21, 22, 20, 25, 19]",1.0
-Hybrid,How is a Naive Bayes classifier trained using counts?,[23],"[23, 24, 4, 25, 21]",1.0
-Hybrid,What are the pros and cons of Naive Bayes?,[25],"[25, 24, 21, 22, 19]",1.0
-Hybrid,How can a classifier cope with the curse of dimensionality in text?,[27],"[27, 15, 4, 9, 33]",1.0
-Hybrid,What does the voted perceptron learn?,[29],"[30, 29, 32, 17, 2]",2.0
-Hybrid,What is the main lesson of the voted perceptron?,[32],"[30, 32, 17, 29, 2]",2.0
-Hybrid,What are support vectors?,[33],"[33, 34, 45, 27, 37]",1.0
-Hybrid,Name some decision tree learning algorithms.,[36],"[36, 38, 37, 41, 17]",1.0
-Hybrid,How does the CART decision tree choose the best split?,[37],"[37, 36, 38, 55, 19]",1.0
-Hybrid,What is the TF-IDF representation of a document?,[40],"[41, 40, 4, 8, 15]",2.0
-Hybrid,Which classification algorithms does TF-IDF weighting help?,[41],"[41, 40, 13, 36, 69]",1.0
-Hybrid,How does the k-nearest neighbor algorithm classify a new document?,[42],"[42, 41, 17, 23, 44]",1.0
-Hybrid,How does Rocchio's algorithm classify a document?,[44],"[44, 17, 41, 2, 3]",1.0
-Hybrid,What is a neural network text classifier?,"[47, 48]","[47, 4, 33, 17, 2]",1.0
-Hybrid,In which aspects can the performance of a classification algorithm be evaluated?,[50],"[50, 51, 2, 3, 7]",1.0
-Hybrid,How are accuracy and error calculated from the contingency table?,[52],"[51, 52, 53, 30, 56]",2.0
-Hybrid,What is the difference between macro-averaging and micro-averaging?,"[53, 54]","[53, 54, 55, 13, 14]",1.0
-Hybrid,What is hold-out estimation of the error rate?,[55],"[55, 56, 51, 30, 52]",1.0
-Hybrid,What is k-fold cross-validation?,[56],"[56, 37, 29, 50, 17]",1.0
-Hybrid,What is overfitting and what causes it?,[57],"[57, 58, 51, 29, 32]",1.0
-Hybrid,What is underfitting?,[58],"[58, 57, 51, 48, 29]",1.0
-Hybrid,How were reviews classified as favorable or not using semantic orientation?,[61],"[61, 62, 63, 5, 67]",1.0
-Hybrid,How did Pang et al. classify movie reviews using subjective sentences?,"[63, 66, 67, 68]","[66, 63, 68, 67, 61]",1.0
-Hybrid,What are the main conclusions about text classification?,[69],"[69, 1, 17, 2, 3]",1.0
+retriever,question,expected,retrieved,first_hit_rank
+BM25,What are the biotic and abiotic components of the environment?,L1.pdf p.1,"L6.pdf p.1, L1.pdf p.1, L6.pdf p.1, L9.pdf p.1, L1.pdf p.1",2.0
+BM25,What are the objectives of environmental studies?,L1.pdf p.1,"L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L5.pdf p.6",1.0
+BM25,How can students help protect the environment?,L1.pdf p.2,"L1.pdf p.2, L1.pdf p.2, L4.pdf p.1, L4.pdf p.1, L3.pdf p.2",1.0
+BM25,What is sustainability?,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, All notes p.0",1.0
+BM25,What are the three pillars of sustainability?,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L7-2.pdf p.1, L2.pdf p.1",1.0
+BM25,Why is CNG called a green fuel?,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L4.pdf p.5, L2.pdf p.3",1.0
+BM25,How much cheaper is CNG than petrol and diesel in Delhi?,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L7.pdf p.1, L8.pdf p.1",1.0
+BM25,How many UN Sustainable Development Goals are there? Name a few.,"L2.pdf p.1, L2.pdf p.4","L2.pdf p.4, L2.pdf p.1, L2.pdf p.1, L1.pdf p.1, L5.pdf p.6",1.0
+BM25,What is ocean acidification?,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L9.pdf p.6, L3.pdf p.3",1.0
+BM25,How much has ocean pH changed since the Industrial Revolution?,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3, L9.pdf p.5",1.0
+BM25,Why is ocean acidification harmful to shell-building organisms?,"L3.pdf p.1, L3.pdf p.2","L3.pdf p.2, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1",1.0
+BM25,What happened to sea butterflies placed in water with projected future carbonate levels?,"L3.pdf p.2, L3.pdf p.3","L3.pdf p.3, L3.pdf p.2, L3.pdf p.1, L3.pdf p.3, L9.pdf p.5",1.0
+BM25,"Apart from fossil fuels, what causes ocean acidification?",L3.pdf p.2,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L2.pdf p.2, L9.pdf p.6",
+BM25,What are the four segments of the environment?,L4.pdf p.1,"L4.pdf p.1, L4.pdf p.1, L4.pdf p.1, All notes p.0, L11.pdf p.1",1.0
+BM25,Why does temperature decrease with altitude in the troposphere?,L4.pdf p.1,"L4.pdf p.1, L4.pdf p.1, L4.pdf p.2, L4.pdf p.2, L4.pdf p.3",1.0
+BM25,Why does temperature increase with altitude in the stratosphere?,"L4.pdf p.1, L4.pdf p.2","L4.pdf p.2, L4.pdf p.2, L4.pdf p.1, L4.pdf p.2, L4.pdf p.1",1.0
+BM25,In which layer of the atmosphere do meteors burn up?,L4.pdf p.3,"L4.pdf p.3, L4.pdf p.3, L4.pdf p.1, L4.pdf p.4, L4.pdf p.2",1.0
+BM25,How is the water on Earth distributed?,L4.pdf p.4,"L4.pdf p.4, L4.pdf p.5, L4.pdf p.4, L4.pdf p.3, L9.pdf p.5",1.0
+BM25,Who wrote Silent Spring and when was it published?,"L5.pdf p.1, L5.pdf p.5","L5.pdf p.1, L5.pdf p.5, L5.pdf p.5, L5.pdf p.1, L5.pdf p.4",1.0
+BM25,Who discovered the insecticidal properties of DDT?,L5.pdf p.2,"L5.pdf p.2, L5.pdf p.1, L5.pdf p.1, L9.pdf p.3, L5.pdf p.4",1.0
+BM25,Why did Rachel Carson say pesticides should be called biocides?,L5.pdf p.3,"L5.pdf p.3, L5.pdf p.1, L5.pdf p.1, L5.pdf p.5, L5.pdf p.4",1.0
+BM25,How did DDT affect birds?,L5.pdf p.3,"L5.pdf p.1, L5.pdf p.5, L5.pdf p.3, L5.pdf p.4, L5.pdf p.1",3.0
+BM25,Where does the word ecology come from?,L6.pdf p.1,"L6.pdf p.1, L9.pdf p.1, L1.pdf p.1, L5.pdf p.5",1.0
+BM25,What is the Y-shaped model of energy flow?,L6.pdf p.2,"L6.pdf p.2, L7.pdf p.1, L6.pdf p.2, L7.pdf p.1, L7-2.pdf p.2",1.0
+BM25,What is Lindeman's ten percent law?,"L7.pdf p.1, L7-2.pdf p.1","L7.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L3.pdf p.1, L6.pdf p.2",1.0
+BM25,"If producers have 80,000 Kcal of energy, how much reaches the tertiary consumers?",L7.pdf p.1,"L7.pdf p.1, L7.pdf p.1, L6.pdf p.1, L7-2.pdf p.1, L6.pdf p.1",1.0
+BM25,What are the three types of ecological pyramids?,L7-2.pdf p.1,"L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.2",1.0
+BM25,What is the shape of the pyramid of numbers in a forest ecosystem?,L7-2.pdf p.2,"L7-2.pdf p.2, L7-2.pdf p.1, L7.pdf p.1, L8.pdf p.1, L7-2.pdf p.1",1.0
+BM25,What are the features of coniferous forests?,L8.pdf p.1,"L8.pdf p.1, L8.pdf p.1, L8.pdf p.2, L2.pdf p.2, L11.pdf p.2",1.0
+BM25,Where are mangrove forests found in India and how are they adapted?,L8.pdf p.1,"L8.pdf p.1, L11.pdf p.3, L11.pdf p.3, L8.pdf p.1, L4.pdf p.1",1.0
+BM25,What is the Bishnoi movement?,L9.pdf p.2,"L9.pdf p.2, L4.pdf p.4, L9.pdf p.3, L5.pdf p.6, L5.pdf p.1",1.0
+BM25,What are the zones of a lake?,L9.pdf p.4,"L7-2.pdf p.2, L11.pdf p.2, L8.pdf p.1, L3.pdf p.2, L6.pdf p.2",
+BM25,What is the Ramsar Convention?,L9.pdf p.6,"L9.pdf p.6, L5.pdf p.5",1.0
+BM25,What are the three levels of biodiversity?,L11.pdf p.1,"L7-2.pdf p.1, L2.pdf p.1, L11.pdf p.1, L3.pdf p.3, L11.pdf p.1",3.0
+BM25,What conditions must a region meet to be a biodiversity hotspot?,L11.pdf p.3,"L11.pdf p.3, L11.pdf p.2, L11.pdf p.1, L11.pdf p.1, L11.pdf p.2",1.0
+BM25,What was the 1998 blackbuck poaching case?,"L11.pdf p.5, L11.pdf p.6","L11.pdf p.5, L11.pdf p.5, L11.pdf p.4, L11.pdf p.2, L9.pdf p.3",1.0
+BM25,What topics do these notes cover?,All notes p.0,"All notes p.0, L2.pdf p.1, L11.pdf p.3",1.0
+Dense,What are the biotic and abiotic components of the environment?,L1.pdf p.1,"L6.pdf p.1, L6.pdf p.1, L9.pdf p.3, L9.pdf p.3, All notes p.0",
+Dense,What are the objectives of environmental studies?,L1.pdf p.1,"L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L2.pdf p.4",1.0
+Dense,How can students help protect the environment?,L1.pdf p.2,"L1.pdf p.2, L1.pdf p.1, L1.pdf p.2, L1.pdf p.1, L1.pdf p.1",1.0
+Dense,What is sustainability?,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L1.pdf p.1, L2.pdf p.1",1.0
+Dense,What are the three pillars of sustainability?,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.4, L2.pdf p.1, L1.pdf p.1",1.0
+Dense,Why is CNG called a green fuel?,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L1.pdf p.2, L3.pdf p.4",1.0
+Dense,How much cheaper is CNG than petrol and diesel in Delhi?,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L2.pdf p.3, L3.pdf p.4",1.0
+Dense,How many UN Sustainable Development Goals are there? Name a few.,"L2.pdf p.1, L2.pdf p.4","L2.pdf p.4, L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L1.pdf p.1",1.0
+Dense,What is ocean acidification?,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3",1.0
+Dense,How much has ocean pH changed since the Industrial Revolution?,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.3, L3.pdf p.1, L3.pdf p.3",1.0
+Dense,Why is ocean acidification harmful to shell-building organisms?,"L3.pdf p.1, L3.pdf p.2","L3.pdf p.2, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L9.pdf p.5",1.0
+Dense,What happened to sea butterflies placed in water with projected future carbonate levels?,"L3.pdf p.2, L3.pdf p.3","L3.pdf p.3, L3.pdf p.2, L3.pdf p.2, L3.pdf p.1, L3.pdf p.3",1.0
+Dense,"Apart from fossil fuels, what causes ocean acidification?",L3.pdf p.2,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.2, L3.pdf p.3",4.0
+Dense,What are the four segments of the environment?,L4.pdf p.1,"All notes p.0, L4.pdf p.1, L1.pdf p.1, L1.pdf p.1, L4.pdf p.1",2.0
+Dense,Why does temperature decrease with altitude in the troposphere?,L4.pdf p.1,"L4.pdf p.2, L4.pdf p.1, L4.pdf p.2, L4.pdf p.2, L4.pdf p.1",2.0
+Dense,Why does temperature increase with altitude in the stratosphere?,"L4.pdf p.1, L4.pdf p.2","L4.pdf p.2, L4.pdf p.2, L4.pdf p.2, L4.pdf p.1, L4.pdf p.1",1.0
+Dense,In which layer of the atmosphere do meteors burn up?,L4.pdf p.3,"L4.pdf p.3, L4.pdf p.3, L4.pdf p.2, L4.pdf p.2, L4.pdf p.1",1.0
+Dense,How is the water on Earth distributed?,L4.pdf p.4,"L4.pdf p.4, L4.pdf p.5, L4.pdf p.4, L9.pdf p.3, L9.pdf p.4",1.0
+Dense,Who wrote Silent Spring and when was it published?,"L5.pdf p.1, L5.pdf p.5","L5.pdf p.1, L5.pdf p.5, L5.pdf p.5, L5.pdf p.1, L5.pdf p.4",1.0
+Dense,Who discovered the insecticidal properties of DDT?,L5.pdf p.2,"L5.pdf p.2, L5.pdf p.1, L5.pdf p.2, L5.pdf p.6, L5.pdf p.4",1.0
+Dense,Why did Rachel Carson say pesticides should be called biocides?,L5.pdf p.3,"L5.pdf p.1, L5.pdf p.6, L5.pdf p.3, L5.pdf p.5, L5.pdf p.1",3.0
+Dense,How did DDT affect birds?,L5.pdf p.3,"L5.pdf p.4, L5.pdf p.4, L5.pdf p.1, L5.pdf p.6, L5.pdf p.2",
+Dense,Where does the word ecology come from?,L6.pdf p.1,"L6.pdf p.1, All notes p.0, L6.pdf p.2, L1.pdf p.1, L6.pdf p.1",1.0
+Dense,What is the Y-shaped model of energy flow?,L6.pdf p.2,"L7.pdf p.1, L7.pdf p.1, L6.pdf p.2, L6.pdf p.2, L9.pdf p.4",3.0
+Dense,What is Lindeman's ten percent law?,"L7.pdf p.1, L7-2.pdf p.1","L5.pdf p.1, L1.pdf p.1, L5.pdf p.1, L4.pdf p.1, L8.pdf p.1",
+Dense,"If producers have 80,000 Kcal of energy, how much reaches the tertiary consumers?",L7.pdf p.1,"L7.pdf p.1, L7.pdf p.1, L7.pdf p.1, L6.pdf p.2, L6.pdf p.2",1.0
+Dense,What are the three types of ecological pyramids?,L7-2.pdf p.1,"L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.2, L7-2.pdf p.1",1.0
+Dense,What is the shape of the pyramid of numbers in a forest ecosystem?,L7-2.pdf p.2,"L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.2, L7-2.pdf p.1",4.0
+Dense,What are the features of coniferous forests?,L8.pdf p.1,"L8.pdf p.1, L8.pdf p.1, L8.pdf p.2, L8.pdf p.1, All notes p.0",1.0
+Dense,Where are mangrove forests found in India and how are they adapted?,L8.pdf p.1,"L8.pdf p.1, L8.pdf p.1, L11.pdf p.2, L11.pdf p.3, L11.pdf p.2",1.0
+Dense,What is the Bishnoi movement?,L9.pdf p.2,"L9.pdf p.2, L9.pdf p.1, L2.pdf p.1, L7-2.pdf p.1, L11.pdf p.1",1.0
+Dense,What are the zones of a lake?,L9.pdf p.4,"L9.pdf p.4, L9.pdf p.4, L9.pdf p.4, L9.pdf p.6, L9.pdf p.5",1.0
+Dense,What is the Ramsar Convention?,L9.pdf p.6,"L9.pdf p.6, L5.pdf p.1, L7-2.pdf p.1, L8.pdf p.1, L4.pdf p.1",1.0
+Dense,What are the three levels of biodiversity?,L11.pdf p.1,"L11.pdf p.1, L11.pdf p.1, All notes p.0, L11.pdf p.1, L11.pdf p.1",1.0
+Dense,What conditions must a region meet to be a biodiversity hotspot?,L11.pdf p.3,"L11.pdf p.3, L6.pdf p.2, L11.pdf p.1, L11.pdf p.3, L9.pdf p.4",1.0
+Dense,What was the 1998 blackbuck poaching case?,"L11.pdf p.5, L11.pdf p.6","L11.pdf p.5, L11.pdf p.5, L11.pdf p.4, L11.pdf p.3, L11.pdf p.4",1.0
+Dense,What topics do these notes cover?,All notes p.0,"L5.pdf p.1, L4.pdf p.1, L1.pdf p.1, L2.pdf p.1, L9.pdf p.1",
+Hybrid,What are the biotic and abiotic components of the environment?,L1.pdf p.1,"L6.pdf p.1, L1.pdf p.1, L6.pdf p.1, L1.pdf p.1, L9.pdf p.1",2.0
+Hybrid,What are the objectives of environmental studies?,L1.pdf p.1,"L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L5.pdf p.3",1.0
+Hybrid,How can students help protect the environment?,L1.pdf p.2,"L1.pdf p.2, L1.pdf p.2, L1.pdf p.1, L1.pdf p.1, L1.pdf p.1",1.0
+Hybrid,What is sustainability?,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L2.pdf p.4",1.0
+Hybrid,What are the three pillars of sustainability?,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L1.pdf p.1",1.0
+Hybrid,Why is CNG called a green fuel?,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L2.pdf p.3, L1.pdf p.2",1.0
+Hybrid,How much cheaper is CNG than petrol and diesel in Delhi?,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L2.pdf p.3, L7.pdf p.1",1.0
+Hybrid,How many UN Sustainable Development Goals are there? Name a few.,"L2.pdf p.1, L2.pdf p.4","L2.pdf p.4, L2.pdf p.1, L2.pdf p.1, L1.pdf p.1, L2.pdf p.1",1.0
+Hybrid,What is ocean acidification?,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3, L9.pdf p.5",1.0
+Hybrid,How much has ocean pH changed since the Industrial Revolution?,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3, L9.pdf p.6",1.0
+Hybrid,Why is ocean acidification harmful to shell-building organisms?,"L3.pdf p.1, L3.pdf p.2","L3.pdf p.2, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L9.pdf p.5",1.0
+Hybrid,What happened to sea butterflies placed in water with projected future carbonate levels?,"L3.pdf p.2, L3.pdf p.3","L3.pdf p.3, L3.pdf p.2, L3.pdf p.1, L3.pdf p.2, L9.pdf p.5",1.0
+Hybrid,"Apart from fossil fuels, what causes ocean acidification?",L3.pdf p.2,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3",
+Hybrid,What are the four segments of the environment?,L4.pdf p.1,"L4.pdf p.1, L4.pdf p.1, L4.pdf p.1, All notes p.0, L1.pdf p.1",1.0
+Hybrid,Why does temperature decrease with altitude in the troposphere?,L4.pdf p.1,"L4.pdf p.1, L4.pdf p.1, L4.pdf p.2, L4.pdf p.2, L4.pdf p.2",1.0
+Hybrid,Why does temperature increase with altitude in the stratosphere?,"L4.pdf p.1, L4.pdf p.2","L4.pdf p.2, L4.pdf p.2, L4.pdf p.1, L4.pdf p.2, L4.pdf p.1",1.0
+Hybrid,In which layer of the atmosphere do meteors burn up?,L4.pdf p.3,"L4.pdf p.3, L4.pdf p.3, L4.pdf p.1, L4.pdf p.2, L4.pdf p.2",1.0
+Hybrid,How is the water on Earth distributed?,L4.pdf p.4,"L4.pdf p.4, L4.pdf p.5, L4.pdf p.4, L9.pdf p.4, L9.pdf p.5",1.0
+Hybrid,Who wrote Silent Spring and when was it published?,"L5.pdf p.1, L5.pdf p.5","L5.pdf p.1, L5.pdf p.5, L5.pdf p.5, L5.pdf p.1, L5.pdf p.4",1.0
+Hybrid,Who discovered the insecticidal properties of DDT?,L5.pdf p.2,"L5.pdf p.2, L5.pdf p.1, L5.pdf p.1, L5.pdf p.2, L5.pdf p.6",1.0
+Hybrid,Why did Rachel Carson say pesticides should be called biocides?,L5.pdf p.3,"L5.pdf p.3, L5.pdf p.1, L5.pdf p.1, L5.pdf p.5, L5.pdf p.6",1.0
+Hybrid,How did DDT affect birds?,L5.pdf p.3,"L5.pdf p.5, L5.pdf p.1, L5.pdf p.3, L5.pdf p.4, L5.pdf p.1",3.0
+Hybrid,Where does the word ecology come from?,L6.pdf p.1,"L6.pdf p.1, L1.pdf p.1, L9.pdf p.1, L5.pdf p.5, L6.pdf p.1",1.0
+Hybrid,What is the Y-shaped model of energy flow?,L6.pdf p.2,"L6.pdf p.2, L7.pdf p.1, L7.pdf p.1, L6.pdf p.2, L7-2.pdf p.1",1.0
+Hybrid,What is Lindeman's ten percent law?,"L7.pdf p.1, L7-2.pdf p.1","L7.pdf p.1, L7-2.pdf p.1, L5.pdf p.1, L7-2.pdf p.1, L1.pdf p.1",1.0
+Hybrid,"If producers have 80,000 Kcal of energy, how much reaches the tertiary consumers?",L7.pdf p.1,"L7.pdf p.1, L7.pdf p.1, L7.pdf p.1, L6.pdf p.2, L6.pdf p.1",1.0
+Hybrid,What are the three types of ecological pyramids?,L7-2.pdf p.1,"L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.2",1.0
+Hybrid,What is the shape of the pyramid of numbers in a forest ecosystem?,L7-2.pdf p.2,"L7-2.pdf p.2, L7-2.pdf p.1, L7.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1",1.0
+Hybrid,What are the features of coniferous forests?,L8.pdf p.1,"L8.pdf p.1, L8.pdf p.1, L8.pdf p.2, L11.pdf p.2, L6.pdf p.2",1.0
+Hybrid,Where are mangrove forests found in India and how are they adapted?,L8.pdf p.1,"L8.pdf p.1, L8.pdf p.1, L11.pdf p.3, L11.pdf p.1, L11.pdf p.3",1.0
+Hybrid,What is the Bishnoi movement?,L9.pdf p.2,"L9.pdf p.2, L4.pdf p.4, L9.pdf p.3, L5.pdf p.5, L5.pdf p.6",1.0
+Hybrid,What are the zones of a lake?,L9.pdf p.4,"L7-2.pdf p.2, L9.pdf p.4, L11.pdf p.2, L8.pdf p.1, L9.pdf p.4",2.0
+Hybrid,What is the Ramsar Convention?,L9.pdf p.6,"L9.pdf p.6, L5.pdf p.5, L5.pdf p.1, L7-2.pdf p.1, L8.pdf p.1",1.0
+Hybrid,What are the three levels of biodiversity?,L11.pdf p.1,"L11.pdf p.1, L7-2.pdf p.1, L11.pdf p.1, L2.pdf p.1, L6.pdf p.2",1.0
+Hybrid,What conditions must a region meet to be a biodiversity hotspot?,L11.pdf p.3,"L11.pdf p.3, L11.pdf p.2, L11.pdf p.1, L11.pdf p.1, L11.pdf p.1",1.0
+Hybrid,What was the 1998 blackbuck poaching case?,"L11.pdf p.5, L11.pdf p.6","L11.pdf p.5, L11.pdf p.5, L11.pdf p.4, L11.pdf p.2, L3.pdf p.2",1.0
+Hybrid,What topics do these notes cover?,All notes p.0,"All notes p.0, L2.pdf p.1, L11.pdf p.3, L5.pdf p.1, L4.pdf p.1",1.0

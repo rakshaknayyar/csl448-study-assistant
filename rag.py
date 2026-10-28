@@ -39,9 +39,11 @@ GEMINI_MODEL = "gemini-3.5-flash-lite"
 NOT_FOUND = "Not found in the notes"
 
 # If the best chunk's cosine similarity is below this, the notes almost
-# certainly do not cover the question. Measured on our notes with retriever.py:
-# on-topic questions scored about 0.35 - 0.83, off-topic ones 0.10 - 0.25.
-SIMILARITY_THRESHOLD = 0.30
+# certainly do not cover the question. Measured on the EVS test questions
+# (1000-character chunks, top 5): questions in the notes scored 0.26 - 0.80,
+# unrelated ones (NLP, cricket) 0.00 - 0.25. Environmental topics the notes
+# don't cover (Kyoto, acid rain) score ~0.47; the prompt rule refuses those.
+SIMILARITY_THRESHOLD = 0.20
 
 # Free tier allows 15 requests per minute. On a rate-limit (429) or
 # "model overloaded" (503) error, wait and try again a few times.
@@ -63,19 +65,19 @@ def build_prompt(question, chunks):
     """
     context_blocks = []
     for number, chunk in enumerate(chunks, start=1):
-        context_blocks.append(
-            f"[{number}] {chunk['source']}, page {chunk['page']}\n{chunk['text']}")
+        where = f"page {chunk['page']}" if chunk["page"] else "overview"
+        context_blocks.append(f"[{number}] {chunk['source']}, {where}\n{chunk['text']}")
     context = "\n\n".join(context_blocks)
 
-    return f"""You are the CSL448 Study Assistant, a tutor for a course on Computational Linguistics and Natural Language Processing.
+    return f"""You are the CSL448 Study Assistant, a tutor who helps a student revise from their own course notes.
 
-Answer the student's question using ONLY the context below. The context comes from the course lecture slides.
+Answer the student's question using ONLY the context below. The context comes from the student's notes.
 
 Rules:
 - Answer ONLY from the given context. Do not use outside knowledge, even if you know the answer.
 - If the answer is not in the context, reply exactly: {NOT_FOUND}
 - Keep the answer short and clear: a few sentences or bullet points.
-- The slides may contain broken formulas or short bullet points; explain them in plain words.
+- The notes may contain broken formulas or short bullet points; explain them in plain words.
 - End your answer with one last line naming the context blocks you used, exactly like this: Sources: [1], [3]
 
 Context:
@@ -230,7 +232,7 @@ def main():
     if result["sources"]:
         print("\nSources:")
         for source in result["sources"]:
-            print(f"  - {source['source']}, page {source['page']}")
+            print(f"  - {source['source']}, {f'page {source['page']}' if source['page'] else 'overview'}")
 
 
 if __name__ == "__main__":

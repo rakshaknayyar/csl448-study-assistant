@@ -1,94 +1,127 @@
-question,in_notes,expected_pages,retrieved_pages,best_similarity,gemini_called,answer,expected_answer,verdict,correct
-What is text classification?,True,[4],"[1, 4, 2]",0.843,True,Text classification is the assignment of text documents to one or more predefined categories based on their content.,The assignment of text documents to one or more predefined categories based on their content.,correct,True
-What are the input and output of a text classifier?,True,[4],"[4, 47, 33]",0.669,True,"- Input: A set of $m$ hand-labeled documents $(x_1, y_1), \dots, (x_m, y_m)$.
-- Output: A learned classifier $f: x \to y$ that assigns text documents to one or more predefined categories based on their content.","Input: a set of m hand-labeled documents (x1,y1),...,(xm,ym). Output: a learned classifier f that maps x to y.",correct,True
-Give some applications of text classification.,True,"[5, 60]","[69, 2, 3]",0.777,True,"Based on the course notes, some applications of text classification include:
-- Topical classification
-- Sentiment detection
-- Subjectivity/opinion detection","Classifying news stories by topic, business names by industry, student essays by grade, email as spam or not, email to tech staff by platform, PDF files as research papers, and documents by author.",incorrect,False
-What is the Reuters-21578 dataset?,True,[6],"[6, 61, 51]",0.465,True,"The Reuters-21578 dataset is the best-studied benchmark for text classification, consisting of newswire stories with 9,603 train documents, 3,299 test documents, 80-100 words each, and 93 classes.","The best-studied benchmark for text classification: Reuters newswire stories with 9603 training and 3299 test documents of 80-100 words each, in 93 classes.",correct,True
-Which pre-processing steps are applied to text before classification?,True,[9],"[11, 9, 2]",0.622,True,"Based on the course notes, the pre-processing steps applied to the text are:
-* Removing stop words (such as punctuations, prepositions, and pronouns)
-* Stemming (reducing words to their root forms, like walk, walker, walked, walking)
-* Indexing (which uses a vector space model)
-* Dimensionality reduction","Removing stop words (punctuation, prepositions, pronouns), stemming, indexing and dimensionality reduction.",correct,True
-What is stemming? Give an example.,True,[9],"[9, 38, 37]",0.563,True,"Stemming is a text pre-processing step where words are reduced to their root form. 
+question,in_notes,expected,retrieved,best_similarity,gemini_called,answer,expected_answer,verdict,correct
+What are the biotic and abiotic components of the environment?,True,L1.pdf p.1,"L6.pdf p.1, L1.pdf p.1, L6.pdf p.1, L1.pdf p.1, L9.pdf p.1",0.646,True,"Based on your notes, the environment consists of two primary categories of components:
 
-An example of stemming given in the notes is:
-- Walk, walker, walked, walking.","Reducing related word forms to a common stem, e.g. walk, walker, walked and walking.",correct,True
-What is the difference between tfc-weighting and ltc-weighting?,True,[13],"[13, 40, 14]",0.531,True,"Based on the provided notes, the differences are:
-* **tfc-weighting** considers the normalized length of documents ($M$).
-* **ltc-weighting** considers the logarithm of the word frequency to reduce the effect of large differences in frequencies.",tfc-weighting considers the normalized length of documents; ltc-weighting uses the logarithm of the word frequency to reduce the effect of large differences in frequencies.,correct,True
-What techniques are used for dimensionality reduction of text?,True,[15],"[9, 15, 27]",0.652,True,"Techniques for dimensionality reduction of text include:
-- Feature selection, which attempts to remove non-informative words using document frequency thresholding or information gain
-- Latent Semantic Indexing
-- Singular Value Decomposition","Feature selection to remove non-informative words, e.g. document frequency thresholding and information gain; also Latent Semantic Indexing and Singular Value Decomposition.",correct,True
-How does Naive Bayes decide which class a document belongs to?,True,[19],"[4, 19, 44]",0.579,True,"Naïve Bayes decides the class of a document by finding the class $y$ that was most likely to generate the document $x$. It does this by calculating a score using the probability of the document given the class multiplied by the prior probability of the class, choosing the class that gives the best score ($f(x) = \text{argmax}_y Pr(x|y)*Pr(y)$).",It builds a probabilistic model Pr(X|Y=y) for each class and picks the class most likely to have generated the document: f(x) = argmax_y Pr(x|y) * Pr(y).,correct,True
-What independence assumption does Naive Bayes make about words?,True,[20],"[20, 23, 24]",0.626,True,"Based on the course notes, Naïve Bayes assumes that each word is generated independently of the others.","Each word is generated independently of the others given the class (a bag of words), which is clearly not true but simplifies Pr(X|Y) to a product of Pr(w|y).",correct,True
-"In Naive Bayes, what kind of distribution is Pr(W|Y) and what prior is used?",True,"[21, 22]","[21, 22, 20]",0.696,True,"In Naive Bayes, $\Pr(W|Y)$ is a multinomial distribution, and a Dirichlet prior is used for it (for instance, using parameters $m$ and $p$).","Pr(W|Y) is a multinomial distribution, and the use of m and p is a Dirichlet prior for the multinomial (for instance m=1, p=0.5).",correct,True
-How is a Naive Bayes classifier trained using counts?,True,[23],"[23, 24, 4]",0.518,True,"To train a Naïve Bayes classifier using counts:
-- For each labeled training document $x_i$ with label $y_i$ and each word $w_{ij}$ in $x_i$, you increment the word count for that label (`count[wij][yi]++`), the total count for that label (`count[yi]++`), and the overall total count (`count++`).
-- The key point is that you only need to keep track of the counts for the words that actually appear in the document $x$.","For each labeled document and each word in it, increment count[word][label], count[label] and the total count; to classify, pick the class with the top log-score, which only needs counts for words that appear in the document.",correct,True
-What are the pros and cons of Naive Bayes?,True,[25],"[25, 24, 21]",0.777,True,"Based on the course notes, the pros and cons of Naive Bayes are:
+* **Biotic (Living) Components:** Animals, plants, and microorganisms.
+* **Abiotic (Non-Living) Components:** Soil, air, water, and sunlight.","Biotic (living): animals, plants and microorganisms. Abiotic (non-living): soil, air, water and sunlight.",correct,True
+What are the objectives of environmental studies?,True,L1.pdf p.1,"L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L1.pdf p.1, L5.pdf p.3",0.637,True,"The core objectives of environmental studies are:
+- **Knowledge:** Gaining a fundamental understanding of ecosystem functions, natural interactions, and environmental vulnerabilities.
+- **Attitude of Concern:** Cultivating deep ethical values and feelings of concern for the earth to motivate active participation in its defense.
+- **Quality Evaluation:** Developing critical skills to evaluate environmental programs, measures, and education strategies based on social, economic, ecological, and political factors.
+- **Protection & Skill Development:** Acquiring actionable skills to identify, analyze, and solve complex environmental problems.","Knowledge of ecosystems, an attitude of concern for the earth, the ability to evaluate environmental programmes, and skills to identify and solve environmental problems.",correct,True
+How can students help protect the environment?,True,L1.pdf p.2,"L1.pdf p.2, L1.pdf p.2, L1.pdf p.1, L1.pdf p.1, L1.pdf p.1",0.581,True,"Students can protect the environment through the following practical steps:
+- Eliminate single-use plastics by using reusable cloth bags and containers instead of bottled water.
+- Optimize energy use by using energy-efficient bulbs and opening windows for natural air circulation instead of running the air conditioner.
+- Practice mindful consumption by adopting a zero-waste mindset regarding food and organizing wardrobe swaps instead of buying fast fashion.
+- Transition to clean transport by walking or riding a bicycle for short commutes.
+- Maintain conscious e-waste habits by using recyclable or rechargeable batteries instead of traditional ones that contain toxic heavy metals.","Eliminate single-use plastics, use energy efficiently, consume mindfully without wasting food, walk or cycle instead of driving, and use recyclable or rechargeable batteries.",correct,True
+What is sustainability?,True,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L2.pdf p.4",0.747,True,"Sustainability is the exploration of how to meet current generations' needs without sacrificing the capacity of future generations to fulfill their own requirements. It focuses on the future effects of policies or business practices on humans, the ecosystem, and the economy, operating on the belief that proactive changes are needed to prevent irreversible damage to the planet. It encompasses three interconnected pillars: environmental, social, and economic sustainability.","Meeting the needs of the current generation without sacrificing the ability of future generations to meet their own needs; it has environmental, social and economic aspects.",correct,True
+What are the three pillars of sustainability?,True,L2.pdf p.1,"L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L2.pdf p.1, L1.pdf p.1",0.735,True,"The three pillars (or dimensions) of sustainability are:
+- **Environmental Sustainability:** Responsible use and protection of natural resources to keep global ecosystems healthy and resilient.
+- **Social Sustainability:** Promoting equity, justice, and safeguarding the essential needs of individuals and communities.
+- **Economic Sustainability:** Maintaining a stable, prosperous economy that supports society's needs while minimizing environmental impacts.","Environmental sustainability (protecting natural resources), social sustainability (equity, justice and people's needs) and economic sustainability (a stable economy with low environmental impact).",correct,True
+Why is CNG called a green fuel?,True,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L2.pdf p.3, L1.pdf p.2",0.601,True,"CNG is called a green fuel because it is completely free from toxic lead and sulfur. As a result, it does not generate harmful atmospheric pollution and helps directly reduce the long-term effects of global warming.","It is free from lead and sulfur, does not cause harmful atmospheric pollution, and reduces the long-term effects of global warming.",correct,True
+How much cheaper is CNG than petrol and diesel in Delhi?,True,L2.pdf p.2,"L2.pdf p.2, L2.pdf p.2, L2.pdf p.2, L2.pdf p.3, L7.pdf p.1",0.755,True,"In Delhi, the operational cost of Compressed Natural Gas (CNG) is roughly 66% lower than petrol and 28% lower than diesel.",Its operating cost is about 66% lower than petrol and 28% lower than diesel.,correct,True
+How many UN Sustainable Development Goals are there? Name a few.,True,"L2.pdf p.1, L2.pdf p.4","L2.pdf p.4, L2.pdf p.1, L2.pdf p.1, L1.pdf p.1, L2.pdf p.1",0.765,True,"Based on your notes, there are 17 United Nations Sustainable Development Goals. A few examples from the list include:
+- No Poverty
+- Zero Hunger
+- Good Health and Well-Being
+- Quality Education
+- Gender Equality","17 goals, such as No Poverty, Zero Hunger, Quality Education, Climate Action and Life Below Water.",correct,True
+What is ocean acidification?,True,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3, L9.pdf p.5",0.804,True,"Ocean acidification is the ongoing decrease in the pH of the Earth's oceans, caused directly by the ocean absorbing anthropogenic carbon dioxide ($CO_2$) from the atmosphere.",The ongoing decrease in the pH of the oceans caused by their uptake of human-made carbon dioxide from the atmosphere.,correct,True
+How much has ocean pH changed since the Industrial Revolution?,True,L3.pdf p.1,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3, L9.pdf p.6",0.719,True,"Based on the notes, historical ocean pH averaged around 8.2 over the past 300 million years. Today, the average surface ocean pH has dropped to around 8.1, representing a 0.1 drop and a 25 percent increase in acidity over the past two centuries.","Average surface pH fell from about 8.2 to about 8.1, which is a 25 percent increase in acidity because the pH scale is logarithmic.",correct,True
+Why is ocean acidification harmful to shell-building organisms?,True,"L3.pdf p.1, L3.pdf p.2","L3.pdf p.2, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L9.pdf p.5",0.661,True,"Ocean acidification is harmful to shell-building organisms because it depletes carbonate ions in seawater. Extra hydrogen ions react with and convert these carbonate ions into bicarbonate ions, consuming the vital structural building blocks that organisms like oysters, clams, sea urchins, corals, and plankton need for calcification. Without enough calcium carbonate and carbonate ions, their protective shells and skeletons grow thin, brittle, dissolve, or become extremely difficult to form.","Extra hydrogen ions use up carbonate ions, which are the building blocks of shells and coral skeletons, so calcification becomes difficult and shells grow thin or dissolve.",correct,True
+What happened to sea butterflies placed in water with projected future carbonate levels?,True,"L3.pdf p.2, L3.pdf p.3","L3.pdf p.3, L3.pdf p.2, L3.pdf p.1, L3.pdf p.2, L9.pdf p.5",0.678,True,"Based on your notes, placing live sea butterflies in water with projected future carbonate levels caused their protective shells to significantly dissolve within just 48 hours.",Their protective shells significantly dissolved within 48 hours.,correct,True
+"Apart from fossil fuels, what causes ocean acidification?",True,L3.pdf p.2,"L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.1, L3.pdf p.3",0.766,True,Not found in the notes,"Deforestation, eutrophication from fertilizer runoff, land use changes, and natural calamities such as subsea volcanic eruptions.",missed (said not found),False
+What are the four segments of the environment?,True,L4.pdf p.1,"L4.pdf p.1, L4.pdf p.1, L4.pdf p.1, All notes p.0, L1.pdf p.1",0.577,True,"The environment is composed of four primary interconnected segments:
+- Atmosphere
+- Lithosphere
+- Hydrosphere
+- Biosphere","Atmosphere, lithosphere, hydrosphere and biosphere.",correct,True
+Why does temperature decrease with altitude in the troposphere?,True,L4.pdf p.1,"L4.pdf p.1, L4.pdf p.1, L4.pdf p.2, L4.pdf p.2, L4.pdf p.2",0.724,True,"Based on your notes, the temperature decreases with altitude in the troposphere due to the following reasons:
+* **Heating from the Earth’s surface:** The troposphere is heated from below because the Earth's surface absorbs solar energy and warms the air near it, an effect that decreases as altitude increases.
+* **Decrease in air pressure:** Air pressure decreases with higher altitude, causing the air to expand and cool (adiabatic cooling).
+* **Adiabatic expansion of air:** Rising air expands due to reduced pressure at higher altitudes, using internal energy and causing the temperature to fall.
+* **Lower concentration of greenhouse gases:** Heat-trapping gases like carbon dioxide and water vapour are concentrated near the surface and decrease in concentration with height, retaining less heat at higher altitudes.","The troposphere is heated from the Earth's surface below, air pressure falls with height so rising air expands and cools (adiabatic cooling), and greenhouse gases that trap heat thin out with height.",correct,True
+Why does temperature increase with altitude in the stratosphere?,True,"L4.pdf p.1, L4.pdf p.2","L4.pdf p.2, L4.pdf p.2, L4.pdf p.1, L4.pdf p.2, L4.pdf p.1",0.886,True,"The temperature increases with altitude in the stratosphere due to the following reasons:
+- **Presence of the ozone layer:** The upper part of the stratosphere contains a high concentration of ozone.
+- **Absorption of UV radiation:** Ozone absorbs harmful ultraviolet rays from the Sun and converts this energy into heat, which warms the surrounding air.
+- **Greater heating at higher levels:** Because ozone concentration is higher in the upper stratosphere, more UV radiation is absorbed there, causing the temperature to rise with altitude.
+- **Less influence of Earth's surface:** Unlike the troposphere, the stratosphere is heated from within the layer itself by ozone rather than from below.","The ozone layer absorbs ultraviolet radiation and turns it into heat, and ozone is more concentrated in the upper stratosphere, so it gets warmer with height.",correct,True
+In which layer of the atmosphere do meteors burn up?,True,L4.pdf p.3,"L4.pdf p.3, L4.pdf p.3, L4.pdf p.1, L4.pdf p.2, L4.pdf p.2",0.625,True,"Meteors burn up in the mesosphere, which is described as a thin air layer.",The mesosphere.,correct,True
+How is the water on Earth distributed?,True,L4.pdf p.4,"L4.pdf p.4, L4.pdf p.5, L4.pdf p.4, L9.pdf p.4, L9.pdf p.5",0.564,True,"Based on the notes, the hydrosphere contains about 1,360 million cubic km of water, distributed as follows:
+- 97% is highly salty ocean water.
+- 2% is locked up safely in glaciers and ice caps.
+- 1% is liquid freshwater available for human consumption.","About 97% is salty ocean water, 2% is locked in glaciers and ice caps, and 1% is liquid freshwater available for human use.",correct,True
+Who wrote Silent Spring and when was it published?,True,"L5.pdf p.1, L5.pdf p.5","L5.pdf p.1, L5.pdf p.5, L5.pdf p.5, L5.pdf p.1, L5.pdf p.4",0.571,True,"* Silent Spring was written by Rachel Carson.
+* It was published in 1962.","Rachel Carson, an American marine biologist, published it in 1962.",correct,True
+Who discovered the insecticidal properties of DDT?,True,L5.pdf p.2,"L5.pdf p.2, L5.pdf p.1, L5.pdf p.1, L5.pdf p.2, L5.pdf p.6",0.743,True,The insecticidal properties of DDT were discovered in 1939 by the Swiss chemist Paul Hermann Müller.,Swiss chemist Paul Hermann Muller in 1939; he received the Nobel Prize in Physiology or Medicine in 1948.,correct,True
+Why did Rachel Carson say pesticides should be called biocides?,True,L5.pdf p.3,"L5.pdf p.3, L5.pdf p.1, L5.pdf p.1, L5.pdf p.5, L5.pdf p.6",0.652,True,Rachel Carson argued that pesticides should be called biocides because they kill many beneficial organisms in addition to the harmful pests.,Because they kill many beneficial organisms in addition to the harmful pests.,correct,True
+How did DDT affect birds?,True,L5.pdf p.3,"L5.pdf p.5, L5.pdf p.1, L5.pdf p.3, L5.pdf p.4, L5.pdf p.1",0.568,True,"Based on your notes, DDT and the pesticide pollution discussed in *Silent Spring* affected birds in the following ways:
 
-* **Pros:**
-  * Very fast and easy to implement.
-  * Well-understood both formally and experimentally.
-* **Cons:**
-  * Seldom gives the very best performance.
-  * The probabilities $Pr(y|x)$ are not accurate (for example, they decrease with the length of $x$).
-  * Probabilities tend to be close to zero or one.","Pros: very fast, easy to implement, well understood. Cons: seldom gives the best performance; its probabilities are not accurate, decrease with document length and tend to be close to 0 or 1.",correct,True
-How can a classifier cope with the curse of dimensionality in text?,True,[27],"[27, 15, 4]",0.521,True,"To cope with the curse of dimensionality, you can:
-* Use sparse vectors for efficiency in time and memory.
-* Use simple classifiers (linear or log-linear).
-* Rely on wide margins.","Use sparse vectors for efficiency, use simple linear or log-linear classifiers, and rely on wide margins.",correct,True
-What does the voted perceptron learn?,True,[29],"[30, 29, 32]",0.665,True,The Voted Perceptron learns a weight vector $W$ and a threshold $\theta$ to classify text documents into two classes (yes or no).,"A weight vector W and a threshold theta for two classes: it answers yes if w.x is greater than theta, otherwise no, and corrects the weights when it makes a mistake.",correct,True
-What is the main lesson of the voted perceptron?,True,[32],"[30, 32, 17]",0.584,True,"The Voted Perceptron demonstrates that you can make very few mistakes when incrementally learning as you pass over the data, provided the examples $x$ are small (bounded by $R$) and there exists some $u$ that has a large margin.","It makes few mistakes when learning incrementally if the examples are bounded and a large-margin separator exists; this motivates support vector machines, which look for the maximum-margin line directly.",correct,True
-What are support vectors?,True,[33],"[33, 34, 45]",0.623,True,"Based on the course notes, the ""support vectors"" are the data points ($x_i$'s) that touch the margin of the Support Vector Machine classifier.",The training examples x_i that touch the margin; the SVM classifier can be written in terms of them. SVMs often give very good results on topical text classification.,correct,True
-Name some decision tree learning algorithms.,True,[36],"[36, 38, 37]",0.79,True,"Based on the provided notes, some decision tree learning algorithms are:
-* ID3 (Quinlan, 1986)
-* C4.5 (Quinlan, 1993)
-* CART (Breiman, Friedman, et. al. 1983)","ID3 (Quinlan, 1986), C4.5 (Quinlan, 1993) and CART (Breiman, Friedman et al.).",correct,True
-How does the CART decision tree choose the best split?,True,[37],"[37, 36, 38]",0.658,True,"To choose the best split, the CART decision tree looks for the splitter that results in the purest children, using entropy as the diversity measure. It considers each component of the document vector in turn to find this best splitter.","The best splitter produces the purest children, measured with entropy as the diversity measure; each component of the document vector is considered in turn, repeating until no set can be partitioned further.",correct,True
-What is the TF-IDF representation of a document?,True,[40],"[41, 40, 4]",0.756,True,"Based on the provided notes, the TF-IDF representation of a document uses a ""bag of words"" approach, which is a long sparse vector where each entry is the weight of a word in the vocabulary. The weight for a word $w$ is calculated using its term frequency and document frequency, and all vector lengths are normalized to 1. Additionally, this representation is an old information retrieval trick that often improves the performance of algorithms like the K-nearest neighbor algorithm and Rocchio's algorithm.","A bag of words: a long sparse vector where each word's weight depends on its term frequency TF(w) in the document and its document frequency DF(w) across the N documents, with the vector normalized.",correct,True
-Which classification algorithms does TF-IDF weighting help?,True,[41],"[41, 40, 13]",0.692,True,"Based on the provided notes, TF-IDF representation often improves the performance of the following algorithms:
-- K-nearest neighbor algorithm
-- Rocchio’s algorithm",It is an old information retrieval trick that often improves algorithms such as the k-nearest neighbor algorithm and Rocchio's algorithm.,correct,True
-How does the k-nearest neighbor algorithm classify a new document?,True,[42],"[42, 41, 17]",0.606,True,"To classify a new object (or document), the nearest neighbor algorithm finds the most similar object in the training set and assigns its category to the new object. This is done by determining the largest similarity between the new object and any element in the training set.",It finds the most similar object(s) in the training set and assigns the category of that nearest neighbor.,correct,True
-How does Rocchio's algorithm classify a document?,True,[44],"[44, 17, 41]",0.772,True,Rocchio's algorithm classifies a document by using the distance to the centroid of documents from each class and assigning the test document to the class that has the maximum similarity.,It uses the distance to the centroid of the documents of each class and assigns the test document to the class with maximum similarity.,correct,True
-What is a neural network text classifier?,True,"[47, 48]","[47, 4, 33]",0.756,True,A neural network text classifier is a collection of interconnected neurons representing documents that incrementally learn from its environment to categorize the documents.,"A collection of interconnected neurons that incrementally learn from their environment to categorize documents, trained with forward and backward propagation.",incorrect,False
-In which aspects can the performance of a classification algorithm be evaluated?,True,[50],"[50, 51, 2]",0.775,True,"The performance of a classification algorithm can be evaluated in the following aspects:
-- Predictive performance (how accurate the learned model is in prediction)
-- Complexity of the learned model (run time, including the time to build the model and the time to classify examples using the model)","Predictive performance (how accurate it is), complexity of the learned model, and run time (time to build the model and to classify examples).",correct,True
-How are accuracy and error calculated from the contingency table?,True,[52],"[51, 52, 53]",0.475,True,"Based on the provided notes, accuracy and error are calculated using the values from the contingency table (where $a$ and $d$ represent correct assignments/rejections, and $b$ and $c$ represent incorrect ones) as follows:
+* Caused eggshell thinning in birds of prey.
+* Led to a decline in populations of eagles, falcons, hawks, and other predatory birds.
+* Contributed to a future where the songs of birds could disappear due to environmental degradation.","It caused eggshell thinning in birds of prey and a decline in populations of eagles, falcons, hawks and other predatory birds.",correct,True
+Where does the word ecology come from?,True,L6.pdf p.1,"L6.pdf p.1, L1.pdf p.1, L9.pdf p.1, L5.pdf p.5, L6.pdf p.1",0.515,True,The word ecology comes from the Greek words *OIKOS* (meaning house or the place where one lives) and *LOGOS* (meaning study of).,From the Greek words oikos (house or place where one lives) and logos (study of).,correct,True
+What is the Y-shaped model of energy flow?,True,L6.pdf p.2,"L6.pdf p.2, L7.pdf p.1, L7.pdf p.1, L6.pdf p.2, L7-2.pdf p.1",0.424,True,"The Y-shaped model features three distinct arms that represent:
+- A. The Photosynthesis Pathway (flowing from the Sun to Producers)
+- B. The Grazing Food Chain Pathway (flowing from Producers to Herbivores/Carnivores)
+- C. The Detritus Food Chain Pathway (flowing from Dead organic matter to Saprotrophic Decomposers)","A model with three arms: the photosynthesis pathway (sun to producers), the grazing food chain (producers to herbivores and carnivores) and the detritus food chain (dead organic matter to decomposers).",correct,True
+What is Lindeman's ten percent law?,True,"L7.pdf p.1, L7-2.pdf p.1","L7.pdf p.1, L7-2.pdf p.1, L5.pdf p.1, L7-2.pdf p.1, L1.pdf p.1",0.261,True,"Lindeman’s Ten Percent Energy Law states that only about 10% of the energy stored in biomass at one trophic level is transferred or converted into biomass at the next higher level. The remaining 90% of the energy is lost to the environment as metabolic heat or consumed during metabolic activities such as respiration, locomotion, and hunting.",Only about 10% of the energy at one trophic level is transferred to the next level; the remaining 90% is used in respiration and other activities or lost as heat.,correct,True
+"If producers have 80,000 Kcal of energy, how much reaches the tertiary consumers?",True,L7.pdf p.1,"L7.pdf p.1, L7.pdf p.1, L7.pdf p.1, L6.pdf p.2, L6.pdf p.1",0.705,True,"Based on the provided notes, if the producers have 80,000 Kcal of energy, a total of 80 Kcal of energy reaches the tertiary consumers (calculated as 10% passing through each successive level: 80,000 Kcal for producers, 8,000 Kcal for primary consumers, 800 Kcal for secondary consumers, and 80 Kcal for tertiary consumers).","80 Kcal (80,000 to 8,000 to 800 to 80 under the ten percent law).",correct,True
+What are the three types of ecological pyramids?,True,L7-2.pdf p.1,"L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.2",0.736,True,"Based on the notes, ecological pyramids are categorized into three main types based on the parameter measured:
+- Pyramid of Numbers
+- Pyramid of Biomass
+- Pyramid of Energy","The pyramid of numbers, the pyramid of biomass and the pyramid of energy.",correct,True
+What is the shape of the pyramid of numbers in a forest ecosystem?,True,L7-2.pdf p.2,"L7-2.pdf p.2, L7-2.pdf p.1, L7.pdf p.1, L7-2.pdf p.1, L7-2.pdf p.1",0.631,True,"Based on your notes, the pyramid of numbers in a forest ecosystem is spindle-shaped.",Spindle-shaped.,correct,True
+What are the features of coniferous forests?,True,L8.pdf p.1,"L8.pdf p.1, L8.pdf p.1, L8.pdf p.2, L11.pdf p.2, L6.pdf p.2",0.501,True,"Coniferous forests are found in high-altitude Himalayan regions and have the following features:
+- Needle-like foliage with a waxy cuticle
+- Conical tree structure designed to help shed snow
+- They consist of cone-bearing gymnosperms like Pine, Deodar, Spruce, and Fir
+- Low plant diversity
+- Thick-furred or migratory wildlife","Found in high-altitude Himalayan regions, with needle-like waxy leaves, conical trees that shed snow, cone-bearing gymnosperms such as pine, deodar, spruce and fir, and low plant diversity.",correct,True
+Where are mangrove forests found in India and how are they adapted?,True,L8.pdf p.1,"L8.pdf p.1, L8.pdf p.1, L11.pdf p.3, L11.pdf p.1, L11.pdf p.3",0.649,True,"Mangrove delta forests are found in intertidal coastal zones, such as the Sundarbans and the Ganga-Brahmaputra Delta. They feature species like Avicennia, Rhizophora, and Sundari trees, and are adapted with pneumatophores (breathing roots), stilt roots, and salt tolerance.","In intertidal coastal zones such as the Sundarbans; they have pneumatophores (breathing roots), stilt roots and salt tolerance, and are home to the Royal Bengal Tiger.",correct,True
+What is the Bishnoi movement?,True,L9.pdf p.2,"L9.pdf p.2, L4.pdf p.4, L9.pdf p.3, L5.pdf p.5, L5.pdf p.6",0.372,True,The historical Bishnoi Movement of Rajasthan involved people sacrificing their lives by hugging Khejri trees and protecting Blackbuck antelopes. It serves as the direct ancestral precursor to the modern Chipko Movement.,A historical movement in Rajasthan where the Bishnoi people sacrificed their lives hugging Khejri trees and protecting blackbuck; it was a precursor of the Chipko Movement.,correct,True
+What are the zones of a lake?,True,L9.pdf p.4,"L7-2.pdf p.2, L9.pdf p.4, L11.pdf p.2, L8.pdf p.1, L9.pdf p.4",0.625,True,"Based on the notes, lakes have spatial zonation and thermal stratification:
 
-* **Accuracy:** Calculated as $(a + d) / (a + b + c + d)$
-* **Error:** Calculated as $(b + c) / (a + b + c + d)$","Accuracy = (a+d)/(a+b+c+d) and error = (b+c)/(a+b+c+d), where a, b, c, d are the cells of the assigned/rejected vs correct/incorrect table.",correct,True
-What is the difference between macro-averaging and micro-averaging?,True,"[53, 54]","[53, 54, 55]",0.592,True,"The difference between macro-averaging and micro-averaging is:
-- **Macro-averaging** gives equal weight to each category by computing the performance measure for each category separately and then averaging those results to find the global mean.
-- **Micro-averaging** gives equal weight to each document by first constructing a global contingency table across all categories and then computing the performance measure from that table.","Macro-averaging gives equal weight to each category (compute per category, then average); micro-averaging gives equal weight to each document (build one global contingency table).",correct,True
-What is hold-out estimation of the error rate?,True,[55],"[55, 56, 51]",0.605,True,"Hold-out estimation is a method used to estimate the error rate of a model by:
-- Randomly splitting the data set into a training set (for example, 2/3) and a test set (for example, 1/3).
-- Building the model from the training set and estimating its error on the test set.
-- Repeating this process with different random splits to make the estimate more reliable, and obtaining an overall error rate by averaging the error rates collected from each split.","Randomly split the data into a training set (e.g. 2/3) and a test set (1/3), build the model on the training set and estimate the error on the test set; repeating with different random splits makes it more reliable.",correct,True
-What is k-fold cross-validation?,True,[56],"[56, 37, 29]",0.551,True,"K-fold cross-validation is a method for estimating error rates where the data set is randomly divided into $k$ subsets of equal size. You then use $k-1$ subsets for training and one subset for testing, repeating this process $k$ times so that each subset is used once for testing. Finally, the error rates from all the runs are averaged to get an overall error estimate, with 10-fold cross-validation being the standard and best choice for an accurate estimate based on extensive experiments.","Divide the data into k equal subsets, train on k-1 and test on the remaining one, k times so each subset is used for testing, then average the error rates; 10-fold is the standard.",correct,True
-What is overfitting and what causes it?,True,[57],"[57, 58, 51]",0.719,True,"Overfitting occurs when a model memorizes the training data instead of learning to generalize, allowing it to perfectly predict training data while failing on unseen data. 
+**Spatial Zonation of Lakes:**
+* **Littoral Zone:** The shallow, sunlit margin near the shore supporting rooted plants and high species diversity.
+* **Limnetic Zone:** The well-lit open water zone dominated by plankton and free-swimming nekton.
+* **Profundal Zone:** The deep, dark open water region below the compensation level, populated by detritivores and anaerobic decomposers.
+* **Benthic Zone:** The bottom substrate of organic mud and sediment inhabited by benthos.
 
-It is caused by:
-- Insufficient examples
-- A complex model
-- Too many examples
-- Noisy data","The model memorizes the training data instead of generalizing, so it fails on unseen data; causes include insufficient examples, a complex model, too many examples and noisy data.",correct,True
-What is underfitting?,True,[58],"[58, 57, 51]",0.765,True,"Underfitting occurs when a model is too simple to find the relationship in the input data. As a result, it fails to work well on both the training data and unseen data.","The model is too simple to find the relationship in the input data, so it works poorly on both the training data and unseen data.",correct,True
-How were reviews classified as favorable or not using semantic orientation?,True,[61],"[61, 62, 63]",0.773,True,"To classify reviews as favorable or not, the method extracts 2-word phrases that contain an adverb or adjective (such as ""unpredictable plot""). The reviews are then classified based on the average Semantic Orientation (SO) of the phrases found, which is computed using queries to a web search engine.","On 410 Epinions reviews, extract 2-word phrases containing an adverb or adjective and classify each review by the average semantic orientation of its phrases, computed with queries to a web search engine.",correct,True
-How did Pang et al. classify movie reviews using subjective sentences?,True,"[63, 66, 67, 68]","[66, 63, 68]",0.746,True,"Based on the course materials, Pang et al. classified movie reviews by applying machine learning to build a sentence classifier. They focused on subjective sentences by trying to force nearby sentences to have similar subjectivity, using methods to find a minimum cut on a constructed graph.","They focus on subjective (polar) sentences: build a sentence subjectivity classifier, then force nearby sentences to have similar subjectivity by finding a minimum cut on a graph with one vertex per sentence.",correct,True
-What are the main conclusions about text classification?,True,[69],"[69, 1, 17]",0.771,True,"Based on the course notes, the main conclusions about text classification are:
-* There are many applications for text classification, and topical classification is fairly well understood because most of the information lies in individual words and very fast, simple methods work well.
-* In many applications, classes are not just topics (such as sentiment or subjectivity/opinion detection), and distinct classification decisions can be interdependent (like the subjectivity of nearby sentences in reviews).
-* There is also a lot of prior work available to build upon.","There are many applications; topical classification is well understood, most information is in individual words and fast simple methods work well; in many applications classes are not topics, e.g. sentiment or subjectivity detection.",correct,True
-What is word2vec?,False,[],"[47, 4, 5]",0.373,True,Not found in the notes,Not found in the notes,correct refusal,True
-How does self-attention work in the Transformer architecture?,False,[],"[69, 69, 58]",0.23,False,Not found in the notes,Not found in the notes,correct refusal,True
-What is BERT and how is it pre-trained?,False,[],"[11, 15, 9]",0.203,False,Not found in the notes,Not found in the notes,correct refusal,True
-How does the BM25 ranking function score documents?,False,[],"[19, 13, 23]",0.39,True,Not found in the notes,Not found in the notes,correct refusal,True
-What is named entity recognition?,False,[],"[5, 4, 9]",0.458,True,Not found in the notes,Not found in the notes,correct refusal,True
-Who won the cricket world cup in 2011?,False,[],"[5, 60, 1]",0.204,False,Not found in the notes,Not found in the notes,correct refusal,True
+**Thermal Stratification in Temperate Lakes:**
+* **Epilimnion:** The warm, oxygen-rich upper layer.
+* **Thermocline (Metalimnion):** The transition zone where temperature drops rapidly with depth.
+* **Hypolimnion:** The cold, dark bottom layer isolated from surface aeration.","The littoral zone (shallow sunlit margin), limnetic zone (open well-lit water), profundal zone (deep dark water below the compensation level) and benthic zone (bottom sediment).",correct,True
+What is the Ramsar Convention?,True,L9.pdf p.6,"L9.pdf p.6, L5.pdf p.5, L5.pdf p.1, L7-2.pdf p.1, L8.pdf p.1",0.372,True,"The Ramsar Convention on Wetlands (1971) is an international treaty dedicated to the conservation and sustainable ""wise use"" of wetlands.",A 1971 international treaty for the conservation and sustainable wise use of wetlands.,correct,True
+What are the three levels of biodiversity?,True,L11.pdf p.1,"L11.pdf p.1, L7-2.pdf p.1, L11.pdf p.1, L2.pdf p.1, L6.pdf p.2",0.661,True,"Based on your notes, the three levels of biodiversity, organized from lower to increasing complexity, are:
+- **Genetic Diversity**: The sum of genetic information contained in the genes of individual organisms (ranging from genes to nucleotides and populations).
+- **Species Diversity**: Ranges from kingdoms and phyla down to species, populations, and individuals.
+- **Ecological Diversity**: Encompasses realms, biogeographic provinces, and ecosystems.","Genetic diversity, species diversity and ecological diversity.",correct,True
+What conditions must a region meet to be a biodiversity hotspot?,True,L11.pdf p.3,"L11.pdf p.3, L11.pdf p.2, L11.pdf p.1, L11.pdf p.1, L11.pdf p.1",0.694,True,"To qualify as an official biodiversity hotspot, a geographical region must meet two strict conditions:
+1. **Endemic Species Count:** It must contain at least 1,500 species of vascular plants as endemics (organisms restricted exclusively to that specific location).
+2. **Habitat Destruction:** It must have lost at least 70% of its primary original habitat due to human activities.","It must have at least 1,500 endemic species of vascular plants and must have lost at least 70% of its original habitat.",correct,True
+What was the 1998 blackbuck poaching case?,True,"L11.pdf p.5, L11.pdf p.6","L11.pdf p.5, L11.pdf p.5, L11.pdf p.4, L11.pdf p.2, L3.pdf p.2",0.428,True,"During the filming of *Hum Saath Saath Hain*, Bollywood actor Salman Khan was implicated in the illegal shooting of two blackbucks at Kankani village near Jodhpur, Rajasthan. 
+
+In this case:
+- Salman Khan was charged under Section 9/51 of the Wildlife (Protection) Act, 1972.
+- Co-actors Saif Ali Khan, Tabu, Sonali Bendre, and Neelam Kothari were charged under Section 51 of the Wildlife (Protection) Act and Section 149 of the Indian Penal Code (and were later acquitted on the benefit of the doubt).
+- A police report was filed in 1998, leading to Salman Khan spending several days in police custody before gaining bail, with the local court taking formal cognizance in 2000.","During the filming of Hum Saath Saath Hain, Salman Khan was accused of shooting two blackbucks near Jodhpur and was charged under the Wildlife (Protection) Act, 1972; co-accused actors were later acquitted.",correct,True
+What topics do these notes cover?,True,All notes p.0,"All notes p.0, L2.pdf p.1, L11.pdf p.3, L5.pdf p.1, L4.pdf p.1",0.593,True,"Based on your notes, the files cover the following topics:
+- L1 Concept of Environment
+- L11 Biodiversity
+- L2 Concept of sustainability
+- L3 Ocean Acidification
+- L4 Segments of Environment
+- L5 Silent spring
+- L6 Concept of Ecosystem
+- L7 PART-2 Ecological Pyramids
+- L7 Energy flow in an ecosystem
+- L8 Forest Ecosystem
+- L9 Grassland, Desert & Aquatic Ecosystem","Concept of environment, sustainability, ocean acidification, segments of environment, Silent Spring, ecosystems, energy flow, ecological pyramids, forest ecosystems, grassland/desert/aquatic ecosystems and biodiversity.",correct,True
+What is the Kyoto Protocol?,False,,"L3.pdf p.4, L2.pdf p.1, L2.pdf p.4, L1.pdf p.2, L2.pdf p.1",0.477,True,Not found in the notes,Not found in the notes,correct refusal,True
+What causes acid rain?,False,,"L3.pdf p.1, L3.pdf p.1, L4.pdf p.4, L9.pdf p.1, L4.pdf p.5",0.46,True,Not found in the notes,Not found in the notes,correct refusal,True
+What did the Montreal Protocol do?,False,,"L3.pdf p.4, L3.pdf p.3, L2.pdf p.1, L5.pdf p.5, L7.pdf p.1",0.176,False,Not found in the notes,Not found in the notes,correct refusal,True
+What is Naive Bayes?,False,,"L3.pdf p.2, L9.pdf p.6, L5.pdf p.1, L7.pdf p.2, L5.pdf p.1",0.115,False,Not found in the notes,Not found in the notes,correct refusal,True
+How does self-attention work in Transformers?,False,,"L5.pdf p.1, L2.pdf p.4, L5.pdf p.5, L5.pdf p.1, L6.pdf p.1",-0.003,False,Not found in the notes,Not found in the notes,correct refusal,True
+Who won the cricket world cup in 2011?,False,,"L11.pdf p.2, L5.pdf p.2, L3.pdf p.3, L5.pdf p.2, L11.pdf p.1",0.246,True,Not found in the notes,Not found in the notes,correct refusal,True

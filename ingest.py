@@ -42,10 +42,11 @@ INDEX_DIR = PROJECT_DIR / "index"
 # Small, fast, free embedding model that runs locally (384-dimensional vectors).
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
-# The notes are PowerPoint slides, so each page is short. With 500 characters
-# most slides fit in a single chunk; longer slides get split with overlap.
-DEFAULT_CHUNK_SIZE = 500
-DEFAULT_CHUNK_OVERLAP = 100
+# The EVS notes are dense pages (about 2,500 characters each) whose tables and
+# side boxes come out of the PDF in a mixed-up order. 1000-character chunks keep
+# a heading and its list together far more often than 500 did (see README).
+DEFAULT_CHUNK_SIZE = 1000
+DEFAULT_CHUNK_OVERLAP = 200
 
 # PowerPoint draws bullets and math symbols with the "Symbol" and "Wingdings"
 # fonts. pypdf reads those as private-use codes (U+E000 to U+F8FF) that display
@@ -172,15 +173,32 @@ def make_overview_chunks(pages, first_id):
     questions about the notes themselves ("what is the topic?", "what does
     this cover?") match nothing. The title comes from the first page and the
     outline from the first slide titled Outline / Contents / Agenda.
+
+    With more than one file, one more chunk lists every file's title, so
+    "which topics do my notes cover?" sees all of them. It has page 0,
+    which the app shows as "Overview".
     """
     pages_by_file = {}
     for page in pages:
         pages_by_file.setdefault(page["source"], []).append(page)
 
     overviews = []
+    titles = {source: file_pages[0]["text"].splitlines()[0]
+              for source, file_pages in pages_by_file.items()}
+
+    if len(pages_by_file) > 1:
+        listing = "\n".join(f"• {title} ({source})" for source, title in titles.items())
+        overviews.append({
+            "id": first_id,
+            "source": "All notes",
+            "page": 0,
+            "text": (f"Overview of all the notes: {len(titles)} files.\n"
+                     f"Titles and topics of the notes, one per file:\n{listing}"),
+        })
+
     for source, file_pages in pages_by_file.items():
         title_page = file_pages[0]
-        title = title_page["text"].splitlines()[0]
+        title = titles[source]
         outline = next((page for page in file_pages
                         if page["text"].splitlines()[0].strip().lower() in OUTLINE_TITLES), None)
 

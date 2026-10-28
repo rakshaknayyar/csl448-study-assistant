@@ -13,10 +13,15 @@ Three experiments:
 Test questions live in test_questions.json, a list like this:
   [
     {
-      "question": "What are the pros and cons of Naive Bayes?",
-      "expected_source": "text_classification.pdf",
-      "expected_page": 25,
-      "expected_answer": "Pros: very fast and easy to implement. Cons: seldom the best performance."
+      "question": "What is ocean acidification?",
+      "expected_source": "L3.pdf",
+      "expected_page": 1,
+      "expected_answer": "The ongoing decrease in ocean pH caused by the uptake of human-made CO2."
+    },
+    {
+      "question": "What is Lindeman's ten percent law?",
+      "expected": [{"source": "L7.pdf", "page": 1}, {"source": "L7-2.pdf", "page": 1}],
+      "expected_answer": "Only about 10% of the energy at one trophic level passes to the next."
     },
     {
       "question": "What is word2vec?",
@@ -25,8 +30,9 @@ Test questions live in test_questions.json, a list like this:
       "expected_answer": "Not found in the notes"
     }
   ]
-  - expected_page can also be a list, e.g. [21, 22], when the answer spans slides
+  - expected_page can also be a list, e.g. [1, 2], when the answer spans pages
     (a retrieved chunk from ANY of those pages counts as a hit).
+  - "expected" (a list of file + page) is for answers found in more than one file.
   - expected_page null = the notes do not cover it. These questions are skipped
     in the retrieval scores and test that the bot says "Not found in the notes".
 
@@ -34,7 +40,7 @@ Run from the project folder (results go to the results/ folder):
   venv\\Scripts\\python.exe evaluate.py
   venv\\Scripts\\python.exe evaluate.py --chunk-sizes 300 500 800
   venv\\Scripts\\python.exe evaluate.py --answers
-  venv\\Scripts\\python.exe evaluate.py --answers --answer-mode dense --answer-k 5
+  venv\\Scripts\\python.exe evaluate.py --answers --answer-mode dense --answer-k 3
 """
 
 import argparse
@@ -52,7 +58,7 @@ from google.genai import errors
 
 import rag
 from ingest import NOTES_DIR, build_index
-from retriever import INDEX_DIR, SEARCH_MODES, Retriever
+from retriever import DEFAULT_TOP_K, INDEX_DIR, SEARCH_MODES, Retriever
 
 # ----------------------------------------------------------------------------
 # Settings
@@ -74,7 +80,12 @@ SURFACE, TEXT, MUTED, GRID, AXIS = "#fcfcfb", "#0b0b0b", "#52514e", "#e1e0d9", "
 # Test questions
 # ----------------------------------------------------------------------------
 def load_questions(path):
-    """Read the test questions and turn expected_page into a list of pages."""
+    """
+    Read the test questions and turn the expected file/page fields into
+    q["expected_locations"], a list of (file, page) pairs. The file is None
+    when expected_source is null (any file counts). An empty list means the
+    question is not in the notes.
+    """
     path = Path(path)
     if not path.exists():
         raise SystemExit(f"{path.name} not found. Create it first (see the format at the top of evaluate.py).")
@@ -85,18 +96,26 @@ def load_questions(path):
     for number, q in enumerate(questions, start=1):
         if not q.get("question"):
             raise SystemExit(f"Question {number} in {path.name} has no 'question' text.")
-        page = q.get("expected_page")
-        q["expected_pages"] = [] if page is None else (page if isinstance(page, list) else [page])
-        q.setdefault("expected_source", None)
+        if "expected" in q:
+            # The answer is in several files: a list of {"source": ..., "page": ...}.
+            q["expected_locations"] = [(item["source"], item["page"]) for item in q["expected"]]
+        else:
+            page = q.get("expected_page")
+            pages = [] if page is None else (page if isinstance(page, list) else [page])
+            q["expected_locations"] = [(q.get("expected_source"), p) for p in pages]
         q.setdefault("expected_answer", "")
     return questions
 
 
 def is_hit(chunk, question):
-    """A retrieved chunk is correct if it comes from an expected page (and file)."""
-    if chunk["page"] not in question["expected_pages"]:
-        return False
-    return question["expected_source"] in (None, chunk["source"])
+    """A retrieved chunk is correct if it comes from an expected page of an expected file."""
+    return any(page == chunk["page"] and source in (None, chunk["source"])
+               for source, page in question["expected_locations"])
+
+
+def describe(locations):
+    """[("L3.pdf", 1), ("L3.pdf", 2)] -> "L3.pdf p.1, L3.pdf p.2" for the result tables."""
+    return ", ".join(f"{source} p.{page}" if source else f"p.{page}" for source, page in locations)
 
 
 # ----------------------------------------------------------------------------
@@ -110,7 +129,7 @@ def evaluate_retrieval(retriever, questions, k_values):
       MRR      = average of 1/rank of the first correct chunk (0 if none)
     Returns (summary rows, per-question rows).
     """
-    answerable = [q for q in questions if q["expected_pages"]]
+    answerable = [q for q in questions if q["expected_locations"]]
     max_k = max(k_values)
     summary, details = [], []
 
@@ -123,8 +142,8 @@ def evaluate_retrieval(retriever, questions, k_values):
             details.append({
                 "retriever": RETRIEVER_NAMES[mode],
                 "question": q["question"],
-                "expected_pages": q["expected_pages"],
-                "retrieved_pages": [chunk["page"] for chunk in results],
+                "expected": describe(q["expected_locations"]),
+                "retrieved": describe((chunk["source"], chunk["page"]) for chunk in results),
                 "first_hit_rank": rank,
             })
 
@@ -210,7 +229,7 @@ def evaluate_answers(retriever, questions, mode, k):
             if result["prompt"]:              # Gemini was really called
                 mark_gemini_call()
 
-            in_notes = bool(q["expected_pages"])
+            in_notes = bool(q["expected_locations"])
             if not in_notes:
                 correct = not result["found"]
                 verdict = "correct refusal" if correct else "answered (hallucination)"
@@ -226,8 +245,8 @@ def evaluate_answers(retriever, questions, mode, k):
         rows.append({
             "question": q["question"],
             "in_notes": in_notes,
-            "expected_pages": q["expected_pages"],
-            "retrieved_pages": [chunk["page"] for chunk in result["chunks"]],
+            "expected": describe(q["expected_locations"]),
+            "retrieved": describe((chunk["source"], chunk["page"]) for chunk in result["chunks"]),
             "best_similarity": round(result["best_similarity"], 3),
             "gemini_called": result["prompt"] is not None,
             "answer": result["answer"],
@@ -300,7 +319,7 @@ def retrieval_chart(summary, k_values, path):
     values = {mode: [by_name[RETRIEVER_NAMES[mode]][f"Recall@{k}"] for k in k_values]
               for mode in SEARCH_MODES}
     grouped_bar_chart([f"Recall@{k}" for k in k_values], values,
-                      "Retrieval: share of questions with the right slide in the top k",
+                      "Retrieval: share of questions with the right page in the top k",
                       "", "Recall", path)
 
 
@@ -344,7 +363,7 @@ def main():
     parser.add_argument("--answers", action="store_true",
                         help="also judge full answers with Gemini (uses Gemini requests)")
     parser.add_argument("--answer-mode", choices=SEARCH_MODES, default="hybrid")
-    parser.add_argument("--answer-k", type=int, default=3)
+    parser.add_argument("--answer-k", type=int, default=DEFAULT_TOP_K)
     parser.add_argument("--results-dir", default=str(RESULTS_DIR))
     args = parser.parse_args()
 
@@ -352,7 +371,7 @@ def main():
     results_dir.mkdir(parents=True, exist_ok=True)
     k_values = sorted(set(args.k_values))
     questions = load_questions(args.questions)
-    answerable = sum(1 for q in questions if q["expected_pages"])
+    answerable = sum(1 for q in questions if q["expected_locations"])
     print(f"Loaded {len(questions)} questions ({answerable} in the notes, "
           f"{len(questions) - answerable} not in the notes)")
     if answerable == 0:

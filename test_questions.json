@@ -1,242 +1,217 @@
 [
   {
-    "question": "What is text classification?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 4,
-    "expected_answer": "The assignment of text documents to one or more predefined categories based on their content."
+    "question": "What are the biotic and abiotic components of the environment?",
+    "expected_source": "L1.pdf", "expected_page": 1,
+    "expected_answer": "Biotic (living): animals, plants and microorganisms. Abiotic (non-living): soil, air, water and sunlight."
   },
   {
-    "question": "What are the input and output of a text classifier?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 4,
-    "expected_answer": "Input: a set of m hand-labeled documents (x1,y1),...,(xm,ym). Output: a learned classifier f that maps x to y."
+    "question": "What are the objectives of environmental studies?",
+    "expected_source": "L1.pdf", "expected_page": 1,
+    "expected_answer": "Knowledge of ecosystems, an attitude of concern for the earth, the ability to evaluate environmental programmes, and skills to identify and solve environmental problems."
   },
   {
-    "question": "Give some applications of text classification.",
-    "expected_source": "text_classification.pdf",
-    "expected_page": [5, 60],
-    "expected_answer": "Classifying news stories by topic, business names by industry, student essays by grade, email as spam or not, email to tech staff by platform, PDF files as research papers, and documents by author."
+    "question": "How can students help protect the environment?",
+    "expected_source": "L1.pdf", "expected_page": 2,
+    "expected_answer": "Eliminate single-use plastics, use energy efficiently, consume mindfully without wasting food, walk or cycle instead of driving, and use recyclable or rechargeable batteries."
   },
   {
-    "question": "What is the Reuters-21578 dataset?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 6,
-    "expected_answer": "The best-studied benchmark for text classification: Reuters newswire stories with 9603 training and 3299 test documents of 80-100 words each, in 93 classes."
+    "question": "What is sustainability?",
+    "expected_source": "L2.pdf", "expected_page": 1,
+    "expected_answer": "Meeting the needs of the current generation without sacrificing the ability of future generations to meet their own needs; it has environmental, social and economic aspects."
   },
   {
-    "question": "Which pre-processing steps are applied to text before classification?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 9,
-    "expected_answer": "Removing stop words (punctuation, prepositions, pronouns), stemming, indexing and dimensionality reduction."
+    "question": "What are the three pillars of sustainability?",
+    "expected_source": "L2.pdf", "expected_page": 1,
+    "expected_answer": "Environmental sustainability (protecting natural resources), social sustainability (equity, justice and people's needs) and economic sustainability (a stable economy with low environmental impact)."
   },
   {
-    "question": "What is stemming? Give an example.",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 9,
-    "expected_answer": "Reducing related word forms to a common stem, e.g. walk, walker, walked and walking."
+    "question": "Why is CNG called a green fuel?",
+    "expected_source": "L2.pdf", "expected_page": 2,
+    "expected_answer": "It is free from lead and sulfur, does not cause harmful atmospheric pollution, and reduces the long-term effects of global warming."
   },
   {
-    "question": "What is the difference between tfc-weighting and ltc-weighting?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 13,
-    "expected_answer": "tfc-weighting considers the normalized length of documents; ltc-weighting uses the logarithm of the word frequency to reduce the effect of large differences in frequencies."
+    "question": "How much cheaper is CNG than petrol and diesel in Delhi?",
+    "expected_source": "L2.pdf", "expected_page": 2,
+    "expected_answer": "Its operating cost is about 66% lower than petrol and 28% lower than diesel."
   },
   {
-    "question": "What techniques are used for dimensionality reduction of text?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 15,
-    "expected_answer": "Feature selection to remove non-informative words, e.g. document frequency thresholding and information gain; also Latent Semantic Indexing and Singular Value Decomposition."
+    "question": "How many UN Sustainable Development Goals are there? Name a few.",
+    "expected_source": "L2.pdf", "expected_page": [1, 4],
+    "expected_answer": "17 goals, such as No Poverty, Zero Hunger, Quality Education, Climate Action and Life Below Water."
   },
   {
-    "question": "How does Naive Bayes decide which class a document belongs to?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 19,
-    "expected_answer": "It builds a probabilistic model Pr(X|Y=y) for each class and picks the class most likely to have generated the document: f(x) = argmax_y Pr(x|y) * Pr(y)."
+    "question": "What is ocean acidification?",
+    "expected_source": "L3.pdf", "expected_page": 1,
+    "expected_answer": "The ongoing decrease in the pH of the oceans caused by their uptake of human-made carbon dioxide from the atmosphere."
   },
   {
-    "question": "What independence assumption does Naive Bayes make about words?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 20,
-    "expected_answer": "Each word is generated independently of the others given the class (a bag of words), which is clearly not true but simplifies Pr(X|Y) to a product of Pr(w|y)."
+    "question": "How much has ocean pH changed since the Industrial Revolution?",
+    "expected_source": "L3.pdf", "expected_page": 1,
+    "expected_answer": "Average surface pH fell from about 8.2 to about 8.1, which is a 25 percent increase in acidity because the pH scale is logarithmic."
   },
   {
-    "question": "In Naive Bayes, what kind of distribution is Pr(W|Y) and what prior is used?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": [21, 22],
-    "expected_answer": "Pr(W|Y) is a multinomial distribution, and the use of m and p is a Dirichlet prior for the multinomial (for instance m=1, p=0.5)."
+    "question": "Why is ocean acidification harmful to shell-building organisms?",
+    "expected_source": "L3.pdf", "expected_page": [1, 2],
+    "expected_answer": "Extra hydrogen ions use up carbonate ions, which are the building blocks of shells and coral skeletons, so calcification becomes difficult and shells grow thin or dissolve."
   },
   {
-    "question": "How is a Naive Bayes classifier trained using counts?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 23,
-    "expected_answer": "For each labeled document and each word in it, increment count[word][label], count[label] and the total count; to classify, pick the class with the top log-score, which only needs counts for words that appear in the document."
+    "question": "What happened to sea butterflies placed in water with projected future carbonate levels?",
+    "expected_source": "L3.pdf", "expected_page": [2, 3],
+    "expected_answer": "Their protective shells significantly dissolved within 48 hours."
   },
   {
-    "question": "What are the pros and cons of Naive Bayes?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 25,
-    "expected_answer": "Pros: very fast, easy to implement, well understood. Cons: seldom gives the best performance; its probabilities are not accurate, decrease with document length and tend to be close to 0 or 1."
+    "question": "Apart from fossil fuels, what causes ocean acidification?",
+    "expected_source": "L3.pdf", "expected_page": 2,
+    "expected_answer": "Deforestation, eutrophication from fertilizer runoff, land use changes, and natural calamities such as subsea volcanic eruptions."
   },
   {
-    "question": "How can a classifier cope with the curse of dimensionality in text?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 27,
-    "expected_answer": "Use sparse vectors for efficiency, use simple linear or log-linear classifiers, and rely on wide margins."
+    "question": "What are the four segments of the environment?",
+    "expected_source": "L4.pdf", "expected_page": 1,
+    "expected_answer": "Atmosphere, lithosphere, hydrosphere and biosphere."
   },
   {
-    "question": "What does the voted perceptron learn?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 29,
-    "expected_answer": "A weight vector W and a threshold theta for two classes: it answers yes if w.x is greater than theta, otherwise no, and corrects the weights when it makes a mistake."
+    "question": "Why does temperature decrease with altitude in the troposphere?",
+    "expected_source": "L4.pdf", "expected_page": 1,
+    "expected_answer": "The troposphere is heated from the Earth's surface below, air pressure falls with height so rising air expands and cools (adiabatic cooling), and greenhouse gases that trap heat thin out with height."
   },
   {
-    "question": "What is the main lesson of the voted perceptron?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 32,
-    "expected_answer": "It makes few mistakes when learning incrementally if the examples are bounded and a large-margin separator exists; this motivates support vector machines, which look for the maximum-margin line directly."
+    "question": "Why does temperature increase with altitude in the stratosphere?",
+    "expected_source": "L4.pdf", "expected_page": [1, 2],
+    "expected_answer": "The ozone layer absorbs ultraviolet radiation and turns it into heat, and ozone is more concentrated in the upper stratosphere, so it gets warmer with height."
   },
   {
-    "question": "What are support vectors?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 33,
-    "expected_answer": "The training examples x_i that touch the margin; the SVM classifier can be written in terms of them. SVMs often give very good results on topical text classification."
+    "question": "In which layer of the atmosphere do meteors burn up?",
+    "expected_source": "L4.pdf", "expected_page": 3,
+    "expected_answer": "The mesosphere."
   },
   {
-    "question": "Name some decision tree learning algorithms.",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 36,
-    "expected_answer": "ID3 (Quinlan, 1986), C4.5 (Quinlan, 1993) and CART (Breiman, Friedman et al.)."
+    "question": "How is the water on Earth distributed?",
+    "expected_source": "L4.pdf", "expected_page": 4,
+    "expected_answer": "About 97% is salty ocean water, 2% is locked in glaciers and ice caps, and 1% is liquid freshwater available for human use."
   },
   {
-    "question": "How does the CART decision tree choose the best split?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 37,
-    "expected_answer": "The best splitter produces the purest children, measured with entropy as the diversity measure; each component of the document vector is considered in turn, repeating until no set can be partitioned further."
+    "question": "Who wrote Silent Spring and when was it published?",
+    "expected_source": "L5.pdf", "expected_page": [1, 5],
+    "expected_answer": "Rachel Carson, an American marine biologist, published it in 1962."
   },
   {
-    "question": "What is the TF-IDF representation of a document?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 40,
-    "expected_answer": "A bag of words: a long sparse vector where each word's weight depends on its term frequency TF(w) in the document and its document frequency DF(w) across the N documents, with the vector normalized."
+    "question": "Who discovered the insecticidal properties of DDT?",
+    "expected_source": "L5.pdf", "expected_page": 2,
+    "expected_answer": "Swiss chemist Paul Hermann Muller in 1939; he received the Nobel Prize in Physiology or Medicine in 1948."
   },
   {
-    "question": "Which classification algorithms does TF-IDF weighting help?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 41,
-    "expected_answer": "It is an old information retrieval trick that often improves algorithms such as the k-nearest neighbor algorithm and Rocchio's algorithm."
+    "question": "Why did Rachel Carson say pesticides should be called biocides?",
+    "expected_source": "L5.pdf", "expected_page": 3,
+    "expected_answer": "Because they kill many beneficial organisms in addition to the harmful pests."
   },
   {
-    "question": "How does the k-nearest neighbor algorithm classify a new document?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 42,
-    "expected_answer": "It finds the most similar object(s) in the training set and assigns the category of that nearest neighbor."
+    "question": "How did DDT affect birds?",
+    "expected_source": "L5.pdf", "expected_page": 3,
+    "expected_answer": "It caused eggshell thinning in birds of prey and a decline in populations of eagles, falcons, hawks and other predatory birds."
   },
   {
-    "question": "How does Rocchio's algorithm classify a document?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 44,
-    "expected_answer": "It uses the distance to the centroid of the documents of each class and assigns the test document to the class with maximum similarity."
+    "question": "Where does the word ecology come from?",
+    "expected_source": "L6.pdf", "expected_page": 1,
+    "expected_answer": "From the Greek words oikos (house or place where one lives) and logos (study of)."
   },
   {
-    "question": "What is a neural network text classifier?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": [47, 48],
-    "expected_answer": "A collection of interconnected neurons that incrementally learn from their environment to categorize documents, trained with forward and backward propagation."
+    "question": "What is the Y-shaped model of energy flow?",
+    "expected_source": "L6.pdf", "expected_page": 2,
+    "expected_answer": "A model with three arms: the photosynthesis pathway (sun to producers), the grazing food chain (producers to herbivores and carnivores) and the detritus food chain (dead organic matter to decomposers)."
   },
   {
-    "question": "In which aspects can the performance of a classification algorithm be evaluated?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 50,
-    "expected_answer": "Predictive performance (how accurate it is), complexity of the learned model, and run time (time to build the model and to classify examples)."
+    "question": "What is Lindeman's ten percent law?",
+    "expected": [{"source": "L7.pdf", "page": 1}, {"source": "L7-2.pdf", "page": 1}],
+    "expected_answer": "Only about 10% of the energy at one trophic level is transferred to the next level; the remaining 90% is used in respiration and other activities or lost as heat."
   },
   {
-    "question": "How are accuracy and error calculated from the contingency table?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 52,
-    "expected_answer": "Accuracy = (a+d)/(a+b+c+d) and error = (b+c)/(a+b+c+d), where a, b, c, d are the cells of the assigned/rejected vs correct/incorrect table."
+    "question": "If producers have 80,000 Kcal of energy, how much reaches the tertiary consumers?",
+    "expected_source": "L7.pdf", "expected_page": 1,
+    "expected_answer": "80 Kcal (80,000 to 8,000 to 800 to 80 under the ten percent law)."
   },
   {
-    "question": "What is the difference between macro-averaging and micro-averaging?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": [53, 54],
-    "expected_answer": "Macro-averaging gives equal weight to each category (compute per category, then average); micro-averaging gives equal weight to each document (build one global contingency table)."
+    "question": "What are the three types of ecological pyramids?",
+    "expected_source": "L7-2.pdf", "expected_page": 1,
+    "expected_answer": "The pyramid of numbers, the pyramid of biomass and the pyramid of energy."
   },
   {
-    "question": "What is hold-out estimation of the error rate?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 55,
-    "expected_answer": "Randomly split the data into a training set (e.g. 2/3) and a test set (1/3), build the model on the training set and estimate the error on the test set; repeating with different random splits makes it more reliable."
+    "question": "What is the shape of the pyramid of numbers in a forest ecosystem?",
+    "expected_source": "L7-2.pdf", "expected_page": 2,
+    "expected_answer": "Spindle-shaped."
   },
   {
-    "question": "What is k-fold cross-validation?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 56,
-    "expected_answer": "Divide the data into k equal subsets, train on k-1 and test on the remaining one, k times so each subset is used for testing, then average the error rates; 10-fold is the standard."
+    "question": "What are the features of coniferous forests?",
+    "expected_source": "L8.pdf", "expected_page": 1,
+    "expected_answer": "Found in high-altitude Himalayan regions, with needle-like waxy leaves, conical trees that shed snow, cone-bearing gymnosperms such as pine, deodar, spruce and fir, and low plant diversity."
   },
   {
-    "question": "What is overfitting and what causes it?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 57,
-    "expected_answer": "The model memorizes the training data instead of generalizing, so it fails on unseen data; causes include insufficient examples, a complex model, too many examples and noisy data."
+    "question": "Where are mangrove forests found in India and how are they adapted?",
+    "expected_source": "L8.pdf", "expected_page": 1,
+    "expected_answer": "In intertidal coastal zones such as the Sundarbans; they have pneumatophores (breathing roots), stilt roots and salt tolerance, and are home to the Royal Bengal Tiger."
   },
   {
-    "question": "What is underfitting?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 58,
-    "expected_answer": "The model is too simple to find the relationship in the input data, so it works poorly on both the training data and unseen data."
+    "question": "What is the Bishnoi movement?",
+    "expected_source": "L9.pdf", "expected_page": 2,
+    "expected_answer": "A historical movement in Rajasthan where the Bishnoi people sacrificed their lives hugging Khejri trees and protecting blackbuck; it was a precursor of the Chipko Movement."
   },
   {
-    "question": "How were reviews classified as favorable or not using semantic orientation?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 61,
-    "expected_answer": "On 410 Epinions reviews, extract 2-word phrases containing an adverb or adjective and classify each review by the average semantic orientation of its phrases, computed with queries to a web search engine."
+    "question": "What are the zones of a lake?",
+    "expected_source": "L9.pdf", "expected_page": 4,
+    "expected_answer": "The littoral zone (shallow sunlit margin), limnetic zone (open well-lit water), profundal zone (deep dark water below the compensation level) and benthic zone (bottom sediment)."
   },
   {
-    "question": "How did Pang et al. classify movie reviews using subjective sentences?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": [63, 66, 67, 68],
-    "expected_answer": "They focus on subjective (polar) sentences: build a sentence subjectivity classifier, then force nearby sentences to have similar subjectivity by finding a minimum cut on a graph with one vertex per sentence."
+    "question": "What is the Ramsar Convention?",
+    "expected_source": "L9.pdf", "expected_page": 6,
+    "expected_answer": "A 1971 international treaty for the conservation and sustainable wise use of wetlands."
   },
   {
-    "question": "What are the main conclusions about text classification?",
-    "expected_source": "text_classification.pdf",
-    "expected_page": 69,
-    "expected_answer": "There are many applications; topical classification is well understood, most information is in individual words and fast simple methods work well; in many applications classes are not topics, e.g. sentiment or subjectivity detection."
+    "question": "What are the three levels of biodiversity?",
+    "expected_source": "L11.pdf", "expected_page": 1,
+    "expected_answer": "Genetic diversity, species diversity and ecological diversity."
   },
   {
-    "question": "What is word2vec?",
-    "expected_source": null,
-    "expected_page": null,
+    "question": "What conditions must a region meet to be a biodiversity hotspot?",
+    "expected_source": "L11.pdf", "expected_page": 3,
+    "expected_answer": "It must have at least 1,500 endemic species of vascular plants and must have lost at least 70% of its original habitat."
+  },
+  {
+    "question": "What was the 1998 blackbuck poaching case?",
+    "expected_source": "L11.pdf", "expected_page": [5, 6],
+    "expected_answer": "During the filming of Hum Saath Saath Hain, Salman Khan was accused of shooting two blackbucks near Jodhpur and was charged under the Wildlife (Protection) Act, 1972; co-accused actors were later acquitted."
+  },
+  {
+    "question": "What topics do these notes cover?",
+    "expected": [{"source": "All notes", "page": 0}],
+    "expected_answer": "Concept of environment, sustainability, ocean acidification, segments of environment, Silent Spring, ecosystems, energy flow, ecological pyramids, forest ecosystems, grassland/desert/aquatic ecosystems and biodiversity."
+  },
+  {
+    "question": "What is the Kyoto Protocol?",
+    "expected_source": null, "expected_page": null,
     "expected_answer": "Not found in the notes"
   },
   {
-    "question": "How does self-attention work in the Transformer architecture?",
-    "expected_source": null,
-    "expected_page": null,
+    "question": "What causes acid rain?",
+    "expected_source": null, "expected_page": null,
     "expected_answer": "Not found in the notes"
   },
   {
-    "question": "What is BERT and how is it pre-trained?",
-    "expected_source": null,
-    "expected_page": null,
+    "question": "What did the Montreal Protocol do?",
+    "expected_source": null, "expected_page": null,
     "expected_answer": "Not found in the notes"
   },
   {
-    "question": "How does the BM25 ranking function score documents?",
-    "expected_source": null,
-    "expected_page": null,
+    "question": "What is Naive Bayes?",
+    "expected_source": null, "expected_page": null,
     "expected_answer": "Not found in the notes"
   },
   {
-    "question": "What is named entity recognition?",
-    "expected_source": null,
-    "expected_page": null,
+    "question": "How does self-attention work in Transformers?",
+    "expected_source": null, "expected_page": null,
     "expected_answer": "Not found in the notes"
   },
   {
     "question": "Who won the cricket world cup in 2011?",
-    "expected_source": null,
-    "expected_page": null,
+    "expected_source": null, "expected_page": null,
     "expected_answer": "Not found in the notes"
   }
 ]

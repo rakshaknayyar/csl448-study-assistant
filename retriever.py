@@ -38,7 +38,9 @@ from sentence_transformers import SentenceTransformer
 PROJECT_DIR = Path(__file__).resolve().parent
 INDEX_DIR = PROJECT_DIR / "index"
 
-DEFAULT_TOP_K = 3
+# 5 chunks of about 1000 characters give Gemini enough context without
+# flooding it (measured on the EVS notes, see README).
+DEFAULT_TOP_K = 5
 
 # Hybrid score = HYBRID_ALPHA * dense + (1 - HYBRID_ALPHA) * BM25
 # 0.5 gives both retrievers equal weight.

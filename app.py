@@ -36,10 +36,10 @@ RETRIEVERS = {"Hybrid": "hybrid", "Meaning": "dense", "Keywords": "bm25"}
 # One-tap questions on the empty Ask page. The last one is NOT in the notes,
 # so it shows the "Not found in the notes" behaviour.
 SUGGESTIONS = [
-    "What are the pros and cons of Naive Bayes?",
-    "How does a decision tree choose the best split?",
-    "What is k-fold cross-validation?",
-    "What is word2vec?",
+    "What is ocean acidification?",
+    "What is Lindeman's ten percent law?",
+    "Who wrote Silent Spring and why?",
+    "What is the Kyoto Protocol?",
 ]
 
 CSS = """
@@ -176,7 +176,7 @@ def init_state():
 
 
 # ----------------------------------------------------------------------------
-# Small HTML builders (text from the slides is always escaped)
+# Small HTML builders (text from the notes is always escaped)
 # ----------------------------------------------------------------------------
 def hero(title, text, left=False):
     st.html(f'<div class="hero{" left" if left else ""}"><h1>{title}</h1><p>{text}</p></div>')
@@ -193,7 +193,7 @@ def sources_html(sources):
         pages_by_file.setdefault(source["source"], []).append(source["page"])
     rows = []
     for file, pages in pages_by_file.items():
-        chips = "".join(f'<span class="chip">Page {page}</span>' for page in pages)
+        chips = "".join(f'<span class="chip">{f"Page {page}" if page else "Overview"}</span>' for page in pages)
         rows.append(f'<div class="sources"><span class="file">{html.escape(file)}</span>{chips}</div>')
     return "".join(rows)
 
@@ -204,7 +204,8 @@ def slides_html(chunks, cited_ids):
     for chunk in chunks:
         used = '<span class="used">Used in the answer</span>' if chunk["id"] in cited_ids else ""
         parts.append(
-            f'<div class="slide"><div class="head">{html.escape(chunk["source"])}, page {chunk["page"]}'
+            f'<div class="slide"><div class="head">{html.escape(chunk["source"])}, '
+            f'{f"page {chunk['page']}" if chunk["page"] else "overview"}'
             f'<span class="match">{chunk["similarity"]:.0%} match</span>{used}</div>'
             f'<div class="text">{html.escape(chunk["text"])}</div></div>')
     return "".join(parts)
@@ -212,18 +213,18 @@ def slides_html(chunks, cited_ids):
 
 def not_found_html(message):
     if message["reason"] == "low_similarity":
-        why = (f"The closest slide is only a {message['best_similarity']:.0%} match "
+        why = (f"The closest passage is only a {message['best_similarity']:.0%} match "
                f"(the cut-off is {SIMILARITY_THRESHOLD:.0%}), so Gemini wasn't asked.")
     else:
-        why = "Gemini read the closest slides and the answer isn't in them."
+        why = "Gemini read the closest passages and the answer isn't in them."
     return ('<div class="notfound"><div class="title">Not found in the notes</div>'
-            '<div class="body">The lecture slides don\'t cover this, so the assistant won\'t guess. '
-            'Try rephrasing, or ask about a topic from the slides.</div>'
+            '<div class="body">Your notes don\'t cover this, so the assistant won\'t guess. '
+            'Try rephrasing, or ask about a topic from your notes.</div>'
             f'<div class="why">{why}</div></div>')
 
 
 def meta_html(message):
-    return (f'<div class="meta">{message["mode"]} search, {message["k"]} slides read, '
+    return (f'<div class="meta">{message["mode"]} search, {message["k"]} passages read, '
             f'best match {message["best_similarity"]:.0%}</div>')
 
 
@@ -249,7 +250,7 @@ def show_answer(index, message):
 
         chunks = message["chunks"]
         if chunks:
-            label = "Show the slide text" if message["found"] else "Show the closest slides"
+            label = "Show the source text" if message["found"] else "Show the closest passages"
             with st.expander(f"{label} ({len(chunks)})"):
                 st.html(slides_html(chunks, message.get("cited_ids", [])))
         if st.session_state.show_prompt and message["prompt"]:
@@ -262,7 +263,7 @@ def ask_page():
     messages = st.session_state.messages
 
     # A new question comes from the chat box or from a suggestion pill.
-    question = st.chat_input("Ask about the CSL448 slides")
+    question = st.chat_input("Ask about your notes")
     question = question or st.session_state.pop("pending_question", None)
     if question:
         messages.append({"role": "user", "content": question})
@@ -275,13 +276,13 @@ def ask_page():
             st.segmented_control(
                 "Search by", list(RETRIEVERS), key="mode", required=True,
                 help="Meaning: sentence embeddings + FAISS. Keywords: BM25. Hybrid: both combined.")
-            st.slider("Slides to read", min_value=1, max_value=10, key="top_k",
-                      help="How many of the closest slide chunks Gemini reads before answering.")
+            st.slider("Passages to read", min_value=1, max_value=10, key="top_k",
+                      help="How many of the closest passages from your notes Gemini reads before answering.")
             st.toggle("Show the prompt sent to Gemini", key="show_prompt")
 
     if not messages:
         hero("Ask your notes.",
-             "Answers come straight from the CSL448 lecture slides, "
+             "Answers come straight from your course notes, "
              "with the page each one came from.")
         with st.container(horizontal=True, horizontal_alignment="center", key="suggestions"):
             for number, suggestion in enumerate(SUGGESTIONS):
@@ -345,15 +346,15 @@ def results_page():
         in_notes = answers[answers["in_notes"]]
         not_in_notes = answers[~answers["in_notes"]]
         hero("How well it works.",
-             f"Tested on {len(answers)} questions written from the slides: "
+             f"Tested on {len(answers)} questions written from the notes: "
              f"{len(in_notes)} the notes can answer and {len(not_in_notes)} they can't.", left=True)
     else:
-        hero("How well it works.", "Tested on questions written from the slides.", left=True)
+        hero("How well it works.", "Tested on questions written from the notes.", left=True)
 
     # Headline numbers
     hybrid = recall[recall["retriever"] == "Hybrid"].iloc[0]
     k_column = "Recall@3" if "Recall@3" in recall.columns else [c for c in recall.columns if c.startswith("Recall@")][-1]
-    stats = [(f"{hybrid[k_column]:.0%}", f"of questions find the right slide in the top {k_column.split('@')[1]} (hybrid search)")]
+    stats = [(f"{hybrid[k_column]:.0%}", f"of questions find the right page in the top {k_column.split('@')[1]} (hybrid search)")]
     if answers is not None:
         if len(in_notes):
             stats.append((f"{in_notes['correct'].mean():.0%}", "of answers judged correct by Gemini"))
@@ -363,9 +364,9 @@ def results_page():
         f'<div class="stat"><div class="value">{value}</div><div class="label">{html.escape(label)}</div></div>'
         for value, label in stats) + "</div>")
 
-    section("Finding the right slide",
+    section("Finding the right page",
             "Keywords (BM25) matches words, Meaning (dense embeddings) matches ideas, and Hybrid combines "
-            "both. Recall@k is the share of questions where the right slide is among the first k results; "
+            "both. Recall@k is the share of questions where the right page is among the first k results; "
             "MRR rewards finding it near the top.")
     if (RESULTS_DIR / "retrieval_recall.png").exists():
         st.image(str(RESULTS_DIR / "retrieval_recall.png"))
@@ -375,7 +376,7 @@ def results_page():
 
     if chunk_sizes is not None:
         section("Does chunk size matter?",
-                "The same questions, searched in indexes that cut the slides into chunks of different "
+                "The same questions, searched in indexes that cut the notes into chunks of different "
                 "lengths (overlap is 20% of the chunk size).")
         if (RESULTS_DIR / "chunk_size_recall.png").exists():
             st.image(str(RESULTS_DIR / "chunk_size_recall.png"))
@@ -395,14 +396,14 @@ def results_page():
 # How it works page
 # ----------------------------------------------------------------------------
 STEPS = [
-    ("Find", "Your question is matched against every slide chunk by keywords (BM25), by meaning "
+    ("Find", "Your question is matched against every chunk of your notes by keywords (BM25), by meaning "
              "(sentence embeddings in a FAISS index), or both."),
-    ("Check", "If even the closest slide is a weak match, the answer is \"Not found in the notes\" "
+    ("Check", "If even the closest passage is a weak match, the answer is \"Not found in the notes\" "
               "and Gemini is never asked."),
-    ("Answer", "The closest slides go into a prompt that tells Gemini to answer only from them, "
+    ("Answer", "The closest passages go into a prompt that tells Gemini to answer only from them, "
                "or to say \"Not found in the notes\"."),
-    ("Cite", "The answer is shown with the file and page of each slide used, and you can open "
-             "the exact slide text to check it."),
+    ("Cite", "The answer is shown with the file and page of each passage used, and you can open "
+             "the exact source text to check it."),
 ]
 
 SYLLABUS = [
@@ -418,7 +419,7 @@ SYLLABUS = [
 
 
 def how_page():
-    hero("How it works.", "Four steps turn your question into an answer you can check against the slides.",
+    hero("How it works.", "Four steps turn your question into an answer you can check against your notes.",
          left=True)
     st.html('<div class="steps">' + "".join(
         f'<div class="step"><div class="num">{number}</div><div class="name">{name}</div>'
