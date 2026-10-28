@@ -110,12 +110,18 @@ venv\Scripts\python.exe rag.py "Why is CNG called a green fuel?" --mode hybrid -
 
 ### 4. Start the chat app (`app.py`)
 
+The easy way: **double-click `run_app.bat`** in the project folder. It uses the venv, reads your Gemini key from
+your Windows settings (so it works even in a window opened before you ran `setx`), builds the index if it is missing,
+and starts the app. Or from PowerShell:
+
 ```powershell
-venv\Scripts\python.exe -m streamlit run app.py
+.\run_app.bat
 ```
 
 Opens http://localhost:8501. The first launch takes about 15 seconds while the embedding model loads.
 If Streamlit asks for an email the first time, just press **Enter**. Stop it with **Ctrl+C**.
+
+After changing the notes or settings, **restart the app**: a running app keeps the old index in memory.
 
 The app has a clean, Apple-style look and three pages in the top bar:
 
@@ -200,6 +206,7 @@ csl448-rag/
 ├── retriever.py           step 2: BM25, dense and hybrid search
 ├── rag.py                 step 3: threshold + prompt + Gemini -> answer with sources
 ├── app.py                 step 4: Streamlit app (Ask, Results, How it works)
+├── run_app.bat            double-click to start the app
 ├── .streamlit/config.toml theme for the app (colours, font, rounded buttons)
 ├── evaluate.py            step 5: Recall@k, MRR, chunk sizes, answer accuracy
 ├── test_questions.json    your test questions for evaluate.py

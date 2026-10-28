@@ -19,3 +19,6 @@ toolbarMode = "viewer"                # hide the developer menu and Deploy butto
 
 [browser]
 gatherUsageStats = false
+
+[logger]
+hideWelcomeMessage = true             # also hides Streamlit's "install skills" pop-up in the app
